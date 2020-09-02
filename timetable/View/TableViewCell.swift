@@ -11,14 +11,18 @@ import UIKit
 
 class LessonCell: UITableViewCell {
     
+    static let reuseId = "LessonCell"
+    
     var viewModel: TableViewCellViewModelType? {
         didSet{
-            textLabel?.text = viewModel?.lessonName
+            textLabel?.text = "\(viewModel!.lessonName)  \(viewModel!.lessonTime)"
+            self.backgroundColor = viewModel?.cellColor
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.selectionStyle = .none
     }
     

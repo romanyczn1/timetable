@@ -46,3 +46,12 @@ struct Employee: Decodable {
     let photoLink: String?
     let fio: String
 }
+
+extension Employee: Equatable {
+    static func == (firstEmployee: Employee, secondEmployee: Employee) -> Bool {
+        if firstEmployee.fio == secondEmployee.fio {
+            return true
+        }
+        return false
+    }
+}

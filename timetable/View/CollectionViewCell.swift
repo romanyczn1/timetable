@@ -11,6 +11,8 @@ import UIKit
 
 class DateCell: UICollectionViewCell {
     
+    static let reuseId = "DateCell"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TableViewCellViewModelType {
     var lessonType: String { get }
@@ -14,4 +15,5 @@ protocol TableViewCellViewModelType {
     var lessonName: String { get }
     var lessonAuditory: String { get }
     var teacherName: String { get }
+    var cellColor: UIColor { get }
 }

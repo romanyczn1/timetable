@@ -47,11 +47,19 @@ class ViewController: UIViewController {
     }
 
     @objc func leftSwipeHandler(){
-        print("from left to right")
+        selectedWeekday! += 1
+        viewModel?.setSelectedWeekday(selectedWeekday: selectedWeekday!, completion: { (realWeekday) in
+            self.selectedWeekday = realWeekday
+        })
+        tableView.reloadData()
     }
     
     @objc func rightSwipeHandler(){
-        print("from right to left")
+        selectedWeekday! -= 1
+        viewModel?.setSelectedWeekday(selectedWeekday: selectedWeekday!, completion: { (realWeekday) in
+            self.selectedWeekday = realWeekday
+        })
+        tableView.reloadData()
     }
 }
 
@@ -62,8 +70,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LessonCell", for: indexPath) as! LessonCell
-        cell.viewModel = viewModel?.tableViewCellViewModel(forWeekday: selectedWeekday ?? 0, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.reuseId, for: indexPath) as! LessonCell
+        cell.viewModel = viewModel?.tableViewCellViewModel(forWeekday: selectedWeekday ?? 0, forSubgroup: selectedSubgroup ?? 0, forIndexPath: indexPath)
         return cell
     }
     
@@ -76,7 +84,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! DateCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCell.reuseId, for: indexPath) as! DateCell
         return cell
     }
       

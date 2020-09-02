@@ -9,8 +9,9 @@
 import Foundation
 
 protocol ViewControllerViewModelType: class {
+    func setSelectedWeekday(selectedWeekday: Int, completion: @escaping (Int) -> Void)
     func getCurrentWeekday() -> Int
-    func tableViewCellViewModel(forWeekday weekday: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType?
+    func tableViewCellViewModel(forWeekday weekday: Int, forSubgroup subgroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType?
     func collectionViewCellViewModel() -> CollectionViewCellViewModelType?
     func numberOfRowsInTableView(forWeekday weekday: Int, forSubgroup subgroup: Int) -> Int
     func numberOfRowsInCollectionView() -> Int
