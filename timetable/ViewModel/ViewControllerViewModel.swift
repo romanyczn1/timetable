@@ -28,28 +28,12 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         let calendar = Calendar.current
         self.currentDay = calendar.component(.day, from: date)
         self.currentWeekday = calendar.component(.weekday, from: date)
-        self.selectedWeekday = currentWeekday
         self.currentMonth = calendar.component(.month, from: date)
         self.currentYear = calendar.component(.year, from: date)
-    }
-    
-    func setSelectedWeekday(selectedWeekday: Int, completion: @escaping (Int) -> Void) {
-        if selectedWeekday == 7 {
-            self.selectedWeekday = 0
-            self.selectedWeek! += 1
-            if self.selectedWeek == 5 {
-                self.selectedWeek = 1
-            }
-            completion(self.selectedWeekday)
-        } else if selectedWeekday == -1{
+        if self.currentWeekday == 1 {
             self.selectedWeekday = 6
-            self.selectedWeek! -= 1
-            if self.selectedWeek == 0 {
-                self.selectedWeek = 4
-            }
-            completion(self.selectedWeekday)
         } else {
-            completion(selectedWeekday)
+            self.selectedWeekday = self.currentWeekday - 2
         }
     }
     
@@ -63,17 +47,31 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         }
     }
     
-    func getCurrentWeekday() -> Int {
-        if self.currentWeekday == 1 {
-            return 6
-        } else {
-            return self.currentWeekday - 2
+    func rightSwipeOccured() {
+        selectedWeekday -= 1
+        if selectedWeekday == -1{
+            self.selectedWeekday = 6
+            self.selectedWeek! -= 1
+            if self.selectedWeek == 0 {
+                self.selectedWeek = 4
+            }
         }
     }
     
-    func numberOfRowsInTableView(forWeekday weekday: Int, forSubgroup subgroup: Int) -> Int {
-        if weekday != 6 {
-            let filteredLessons = timetable?.schedules[weekday].schedule.filter({ (lesson) -> Bool in
+    func leftSwipeOccured() {
+        selectedWeekday += 1
+        if selectedWeekday == 7 {
+            self.selectedWeekday = 0
+            self.selectedWeek! += 1
+            if self.selectedWeek == 5 {
+                self.selectedWeek = 1
+            }
+        }
+    }
+    
+    func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {
+        if selectedWeekday != 6 {
+            let filteredLessons = timetable?.schedules[selectedWeekday].schedule.filter({ (lesson) -> Bool in
                 lesson.weekNumber.contains(selectedWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
             })
             return filteredLessons?.count ?? 0
@@ -90,13 +88,13 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         return nil
     }
     
-    func tableViewCellViewModel(forWeekday weekday: Int, forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
-        let lesson = getNeededLesson(forWeekday: weekday, forSubgroup: subGroup, forIndexPath: indexPath)
+    func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
+        let lesson = getNeededLesson(forSubgroup: subGroup, forIndexPath: indexPath)
         return TableViewCellViewModel.init(forLesson: lesson, forIndexPath: indexPath)
     }
     
-    private func getNeededLesson(forWeekday weekday: Int, forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {
-        let weekFilteredLesson = self.timetable?.schedules[weekday].schedule.filter({ (lesson) -> Bool in
+    private func getNeededLesson(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {
+        let weekFilteredLesson = self.timetable?.schedules[selectedWeekday].schedule.filter({ (lesson) -> Bool in
             lesson.weekNumber.contains(selectedWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subGroup)
         })
         return weekFilteredLesson![indexPath.row]

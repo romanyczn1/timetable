@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var viewModel: ViewControllerViewModelType?
-    var selectedWeekday: Int?
     var selectedGroup: String = "872303"
     var selectedSubgroup: Int? = 1
     
@@ -22,7 +21,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel = ViewControllerViewModel()
-        selectedWeekday = viewModel?.getCurrentWeekday()
         viewModel?.getTimetableData(forGroup: selectedGroup, completion: { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -47,18 +45,12 @@ class ViewController: UIViewController {
     }
 
     @objc func leftSwipeHandler(){
-        selectedWeekday! += 1
-        viewModel?.setSelectedWeekday(selectedWeekday: selectedWeekday!, completion: { (realWeekday) in
-            self.selectedWeekday = realWeekday
-        })
+        viewModel?.leftSwipeOccured()
         tableView.reloadData()
     }
     
     @objc func rightSwipeHandler(){
-        selectedWeekday! -= 1
-        viewModel?.setSelectedWeekday(selectedWeekday: selectedWeekday!, completion: { (realWeekday) in
-            self.selectedWeekday = realWeekday
-        })
+        viewModel?.rightSwipeOccured()
         tableView.reloadData()
     }
 }
@@ -66,12 +58,12 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel!.numberOfRowsInTableView(forWeekday: selectedWeekday ?? 0, forSubgroup: selectedSubgroup ?? 0)
+        return viewModel!.numberOfRowsInTableView(forSubgroup: selectedSubgroup ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.reuseId, for: indexPath) as! LessonCell
-        cell.viewModel = viewModel?.tableViewCellViewModel(forWeekday: selectedWeekday ?? 0, forSubgroup: selectedSubgroup ?? 0, forIndexPath: indexPath)
+        cell.viewModel = viewModel?.tableViewCellViewModel(forSubgroup: selectedSubgroup ?? 0, forIndexPath: indexPath)
         return cell
     }
     
