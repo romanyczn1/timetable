@@ -9,5 +9,6 @@
 import Foundation
 
 protocol CollectionViewCellViewModelType {
-    
+    var weekdayName: String { get }
+    var weekdayDate: String { get }
 }

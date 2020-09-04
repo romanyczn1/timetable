@@ -13,23 +13,21 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     var fetcher: DataFetcher?
     var timetable: Timetable?
     
-    let currentDay: Int
     var currentWeekday: Int
-    let currentMonth: Int
-    let currentYear: Int
     
+    var selectedMonth: Int
+    var selectedYear: Int
+    var selectedDay: Int
     var selectedWeekday: Int
-    var selectedWeek: Int?
-    
-    let weekdayNames = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
+    var selectedSchoolWeek: Int?
     
     init(){
         let date = Date()
         let calendar = Calendar.current
-        self.currentDay = calendar.component(.day, from: date)
         self.currentWeekday = calendar.component(.weekday, from: date)
-        self.currentMonth = calendar.component(.month, from: date)
-        self.currentYear = calendar.component(.year, from: date)
+        selectedMonth = calendar.component(.month, from: date)
+        selectedYear = calendar.component(.year, from: date)
+        selectedDay = calendar.component(.day, from: date)
         if self.currentWeekday == 1 {
             self.selectedWeekday = 6
         } else {
@@ -42,18 +40,18 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         fetcher!.getTimetable(forGroupId: group) { [weak self] (timetable, error) in
             if error != nil { return }
             self?.timetable = timetable
-            self?.selectedWeek = timetable?.currentWeekNumber
+            self?.selectedSchoolWeek = timetable?.currentWeekNumber
             completion()
         }
     }
     
     func rightSwipeOccured() {
         selectedWeekday -= 1
-        if selectedWeekday == -1{
+        if selectedWeekday == -1 {
             self.selectedWeekday = 6
-            self.selectedWeek! -= 1
-            if self.selectedWeek == 0 {
-                self.selectedWeek = 4
+            self.selectedSchoolWeek! -= 1
+            if self.selectedSchoolWeek == 0 {
+                self.selectedSchoolWeek = 4
             }
         }
     }
@@ -62,9 +60,9 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         selectedWeekday += 1
         if selectedWeekday == 7 {
             self.selectedWeekday = 0
-            self.selectedWeek! += 1
-            if self.selectedWeek == 5 {
-                self.selectedWeek = 1
+            self.selectedSchoolWeek! += 1
+            if self.selectedSchoolWeek == 5 {
+                self.selectedSchoolWeek = 1
             }
         }
     }
@@ -72,7 +70,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {
         if selectedWeekday != 6 {
             let filteredLessons = timetable?.schedules[selectedWeekday].schedule.filter({ (lesson) -> Bool in
-                lesson.weekNumber.contains(selectedWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
+                lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
             })
             return filteredLessons?.count ?? 0
         }
@@ -80,12 +78,12 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     }
     
     func numberOfRowsInCollectionView() -> Int {
-        return weekdayNames.count
+        return 7
     }
     
     
-    func collectionViewCellViewModel() -> CollectionViewCellViewModelType? {
-        return nil
+    func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType? {
+        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: MyDate.init(month: 1, year: 1, day: 1))
     }
     
     func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
@@ -95,7 +93,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     private func getNeededLesson(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {
         let weekFilteredLesson = self.timetable?.schedules[selectedWeekday].schedule.filter({ (lesson) -> Bool in
-            lesson.weekNumber.contains(selectedWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subGroup)
+            lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subGroup)
         })
         return weekFilteredLesson![indexPath.row]
     }

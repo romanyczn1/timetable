@@ -26,15 +26,30 @@ class ViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         })
+        view.backgroundColor = .white
         setUpTableView()
+        setUpCollectionView()
+    }
+    
+    private func setUpCollectionView() {
         collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isScrollEnabled = false
         collectionView.register(DateCell.self, forCellWithReuseIdentifier: "DateCell")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        let ost: CGFloat = UIScreen.main.bounds.width.truncatingRemainder(dividingBy: 7)
+        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -ost/16).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: ost/16).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        collectionView.backgroundColor = .clear
     }
     
     private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LessonCell.self, forCellReuseIdentifier: "LessonCell")
+        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         let leftSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeHandler))
         leftSwipeGestureRecognizer.direction = .left
@@ -76,9 +91,30 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCell.reuseId, for: indexPath) as! DateCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCell.reuseId, for: indexPath) as? DateCell else {
+            return UICollectionViewCell()
+        }
+        cell.viewModel = viewModel?.collectionViewCellViewModel(forIndexPath: indexPath)
         return cell
     }
       
 }
 
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (UIScreen.main.bounds.width / 7), height: 70)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
