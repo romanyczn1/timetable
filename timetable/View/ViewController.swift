@@ -37,12 +37,11 @@ class ViewController: UIViewController {
         collectionView.isScrollEnabled = false
         collectionView.register(DateCell.self, forCellWithReuseIdentifier: "DateCell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        let ost: CGFloat = UIScreen.main.bounds.width.truncatingRemainder(dividingBy: 7)
-        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -ost/16).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: ost/16).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .black
     }
     
     private func setUpTableView() {
@@ -62,11 +61,13 @@ class ViewController: UIViewController {
     @objc func leftSwipeHandler(){
         viewModel?.leftSwipeOccured()
         tableView.reloadData()
+        collectionView.reloadData()
     }
     
     @objc func rightSwipeHandler(){
         viewModel?.rightSwipeOccured()
         tableView.reloadData()
+        collectionView.reloadData()
     }
 }
 

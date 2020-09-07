@@ -12,4 +12,5 @@ struct MyDate {
     let month: Int
     let year: Int
     let day: Int
+    let selectedWeekday: Int
 }

@@ -21,6 +21,8 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     var selectedWeekday: Int
     var selectedSchoolWeek: Int?
     
+    let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    
     init(){
         let date = Date()
         let calendar = Calendar.current
@@ -47,6 +49,15 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     func rightSwipeOccured() {
         selectedWeekday -= 1
+        selectedDay -= 1
+        if selectedDay == 0 {
+            selectedMonth -= 1
+            if selectedMonth == 0 {
+                selectedYear -= 1
+                selectedMonth = 12
+            }
+            selectedDay = numberOfDaysInMonths[selectedMonth]
+        }
         if selectedWeekday == -1 {
             self.selectedWeekday = 6
             self.selectedSchoolWeek! -= 1
@@ -58,6 +69,15 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     func leftSwipeOccured() {
         selectedWeekday += 1
+        selectedDay += 1
+        if selectedDay > numberOfDaysInMonths[selectedMonth] {
+            selectedMonth += 1
+            if selectedMonth ==  13 {
+                selectedMonth = 0
+                selectedYear += 1
+            }
+            selectedDay = 0
+        }
         if selectedWeekday == 7 {
             self.selectedWeekday = 0
             self.selectedSchoolWeek! += 1
@@ -83,7 +103,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType? {
-        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: MyDate.init(month: 1, year: 1, day: 1))
+        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: MyDate.init(month: selectedMonth, year: selectedYear, day: selectedDay, selectedWeekday: selectedWeekday))
     }
     
     func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
