@@ -35,33 +35,46 @@ class TableViewCellViewModel: TableViewCellViewModelType {
             self.lessonAuditory = ""
         }
         switch lessonType {
-        case "ЛК" : self.cellColor = #colorLiteral(red: 0.3764705882, green: 1, blue: 0, alpha: 1)
-        case "ПЗ" : self.cellColor = #colorLiteral(red: 1, green: 1, blue: 0.2, alpha: 1)
-        case "ЛР" : self.cellColor = #colorLiteral(red: 1, green: 0.2, blue: 1, alpha: 1)
+        case "ЛК" : self.cellColor = #colorLiteral(red: 0.3647058824, green: 0.7450980392, blue: 0.6666666667, alpha: 1)
+        case "ПЗ" : self.cellColor = #colorLiteral(red: 1, green: 1, blue: 0.4784313725, alpha: 1)
+        case "ЛР" : self.cellColor = #colorLiteral(red: 0.6117647059, green: 0.5450980392, blue: 0.8392156863, alpha: 1)
         default:
             self.cellColor = UIColor.white
         }
         if lesson.employee != [] {
             self.teacherName = lesson.employee[0].fio
             if lesson.employee[0].photoLink != nil {
-                downloadImage(from: URL(string: lesson.employee[0].photoLink!)!)
+                downloadImage(fromURL: lesson.employee[0].photoLink!)
             }
         }else {
             self.teacherName = ""
         }
     }
     
-    private func downloadImage(from url: URL) {
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.teacherImage = UIImage(data: data)
-                self?.delegate?.updateImage(image: (self?.teacherImage) ?? nil)
+    private func downloadImage(fromURL url: String) {
+        guard let imageURL = URL(string: url) else { return }
+        
+        let cache = URLCache.shared
+        let request = URLRequest(url: imageURL)
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let data = cache.cachedResponse(for: request)?.data, let image = UIImage(data: data) {
+                DispatchQueue.main.async() { [weak self] in
+                    self?.delegate?.updateImage(image: image)
+                }
+            } else {
+                URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300, let image = UIImage(data: data){
+                        let cachedData = CachedURLResponse(response: response, data: data)
+                        cache.storeCachedResponse(cachedData, for: request)
+                        DispatchQueue.main.async() { [weak self] in
+                            self?.delegate?.updateImage(image: image)
+                        }
+                    }
+                }.resume()
             }
+            
+            
         }
-    }
-    
-    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 }

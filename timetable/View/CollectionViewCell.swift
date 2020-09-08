@@ -35,6 +35,7 @@ class DateCell: UICollectionViewCell {
     }()
     
     static let reuseId = "DateCell"
+    
     var viewModel: CollectionViewCellViewModelType? {
         willSet(viewModel){
             dateLabel.text = viewModel?.weekdayDate

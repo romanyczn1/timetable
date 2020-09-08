@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Timetable: Decodable {
     let employee: String?
@@ -27,6 +28,7 @@ struct Schedule: Decodable {
 }
 
 struct Lesson: Decodable {
+
     let subject: String
     let lessonTime: String
     let startLessonTime: String

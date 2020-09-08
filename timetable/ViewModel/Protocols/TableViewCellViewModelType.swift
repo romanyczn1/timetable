@@ -15,7 +15,7 @@ protocol TableViewCellViewModelType {
     var lessonName: String { get }
     var lessonAuditory: String { get }
     var teacherName: String { get }
-    var teacherImage: UIImage? { get }
     var cellColor: UIColor { get }
+    var teacherImage: UIImage? { get }
     var delegate: TableViewCellViewModelDelegate? { get set }
 }
