@@ -13,14 +13,13 @@ class DateCell: UICollectionViewCell {
     
     var color: UIColor? {
         willSet(color){
-            self.backgroundColor = color
+            self.dateLabel.textColor = color
+            self.weekdayNameLabel.textColor = color
         }
     }
 
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "28"
-        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,8 +28,6 @@ class DateCell: UICollectionViewCell {
 
     let weekdayNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "ВТ"
-        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

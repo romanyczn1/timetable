@@ -24,7 +24,7 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
         if indexPath.row == date.selectedWeekday {
             color = .blue
         } else {
-            color = .black
+            color = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         }
         setDate(date: date, indexPath: indexPath)
     }
@@ -32,14 +32,24 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     private func setDate(date: MyDate, indexPath: IndexPath) {
         var day = date.day - ( date.selectedWeekday - indexPath.row)
         if day < 1 {
-            day = numberOfDaysInMonths[date.month - 2] + day
+            if date.month != 1 {
+                day = numberOfDaysInMonths[date.month - 2] + day
+            } else {
+                day = numberOfDaysInMonths[11] + day
+            }
             self.date.month -= 1
-            //dont forget bout year
+            if self.date.month == 0 {
+                self.date.year -= 1
+                self.date.month = 12
+            }
         }
         if day > numberOfDaysInMonths[self.date.month - 1] {
             day = day - numberOfDaysInMonths[date.month - 1]
             self.date.month += 1
-            //dont forget bout year
+            if self.date.month == 13 {
+                self.date.year += 1
+                self.date.month = 1
+            }
         }
         self.date.day = day
         self.date.selectedWeekday = indexPath.row

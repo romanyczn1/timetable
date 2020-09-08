@@ -27,7 +27,6 @@ class ViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         })
-        view.backgroundColor = .white
         setUpTableView()
         setUpCollectionView()
     }
@@ -42,7 +41,6 @@ class ViewController: UIViewController {
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        collectionView.backgroundColor = .black
     }
     
     private func setUpTableView() {
@@ -51,6 +49,7 @@ class ViewController: UIViewController {
         tableView.register(LessonCell.self, forCellReuseIdentifier: "LessonCell")
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
         let leftSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeHandler))
         leftSwipeGestureRecognizer.direction = .left
         tableView.addGestureRecognizer(leftSwipeGestureRecognizer)
@@ -81,7 +80,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LessonCell.reuseId, for: indexPath) as! LessonCell
         cell.viewModel = viewModel?.tableViewCellViewModel(forSubgroup: selectedSubgroup ?? 0, forIndexPath: indexPath)
+        cell.backgroundColor = .clear
+        cell.viewModel?.delegate = cell
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
     }
     
 }
