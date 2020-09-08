@@ -16,4 +16,5 @@ protocol ViewControllerViewModelType: class {
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int
     func numberOfRowsInCollectionView() -> Int
     func getTimetableData(forGroup group: String, completion: @escaping () -> Void)
+    func setDate(date: MyDate, indexPath: IndexPath)
 }

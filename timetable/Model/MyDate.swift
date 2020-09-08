@@ -9,8 +9,8 @@
 import Foundation
 
 struct MyDate {
-    let month: Int
-    let year: Int
-    let day: Int
-    let selectedWeekday: Int
+    var month: Int
+    var year: Int
+    var day: Int
+    var selectedWeekday: Int
 }

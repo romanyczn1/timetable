@@ -56,7 +56,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
                 selectedYear -= 1
                 selectedMonth = 12
             }
-            selectedDay = numberOfDaysInMonths[selectedMonth]
+            selectedDay = numberOfDaysInMonths[selectedMonth - 1]
         }
         if selectedWeekday == -1 {
             self.selectedWeekday = 6
@@ -70,13 +70,13 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     func leftSwipeOccured() {
         selectedWeekday += 1
         selectedDay += 1
-        if selectedDay > numberOfDaysInMonths[selectedMonth] {
+        if selectedDay > numberOfDaysInMonths[selectedMonth - 1] {
             selectedMonth += 1
             if selectedMonth ==  13 {
                 selectedMonth = 0
                 selectedYear += 1
             }
-            selectedDay = 0
+            selectedDay = 1
         }
         if selectedWeekday == 7 {
             self.selectedWeekday = 0
@@ -85,6 +85,12 @@ class ViewControllerViewModel: ViewControllerViewModelType {
                 self.selectedSchoolWeek = 1
             }
         }
+    }
+    
+    func setDate(date: MyDate, indexPath: IndexPath) {
+        self.selectedDay = date.day
+        self.selectedMonth = date.month
+        self.selectedWeekday = date.selectedWeekday
     }
     
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {

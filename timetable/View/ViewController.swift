@@ -4,7 +4,8 @@
 //
 //  Created by Roman Bukh on 8/29/20.
 //  Copyright © 2020 Roman Bukharin. All rights reserved.
-//
+// надо сделать чтобы при нажатии на день все было четко в частности чтобы менялся день и мес>ц
+// во вью модели вьюконтроллера счас вообще все нахер к чертям забагано
 
 import UIKit
 
@@ -99,6 +100,19 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
       
+}
+
+extension ViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! DateCell
+        let date = cell.viewModel?.date
+        print(date!)
+        viewModel?.setDate(date: date!, indexPath: indexPath)
+        collectionView.reloadData()
+        tableView.reloadData()
+    }
+    
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
