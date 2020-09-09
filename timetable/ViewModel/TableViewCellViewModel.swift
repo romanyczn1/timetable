@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TableViewCellViewModelDelegate: class {
-    func updateImage(image: UIImage?)
+    func updateImage(image: UIImage)
 }
 
 class TableViewCellViewModel: TableViewCellViewModelType {
@@ -18,10 +18,12 @@ class TableViewCellViewModel: TableViewCellViewModelType {
     var lessonType: String
     var lessonTime: String
     var lessonName: String
-    var lessonAuditory: String
-    var teacherName: String
+    var lessonAuditory: String?
+    var teacherName: String?
+    var teacherLastName: String?
+    var tacherFirstName: String?
+    var teacherMiddleName: String?
     var cellColor: UIColor
-    var teacherImage: UIImage?
     
     weak var delegate: TableViewCellViewModelDelegate?
     
@@ -31,8 +33,6 @@ class TableViewCellViewModel: TableViewCellViewModelType {
         self.lessonName = lesson.subject
         if lesson.auditory != [] {
             self.lessonAuditory = lesson.auditory[0]
-        }else {
-            self.lessonAuditory = ""
         }
         switch lessonType {
         case "ЛК" : self.cellColor = #colorLiteral(red: 0.3647058824, green: 0.7450980392, blue: 0.6666666667, alpha: 1)
@@ -43,11 +43,12 @@ class TableViewCellViewModel: TableViewCellViewModelType {
         }
         if lesson.employee != [] {
             self.teacherName = lesson.employee[0].fio
+            self.teacherLastName = lesson.employee[0].lastName
+            self.teacherMiddleName = lesson.employee[0].middleName
+            self.tacherFirstName = lesson.employee[0].firstName
             if lesson.employee[0].photoLink != nil {
                 downloadImage(fromURL: lesson.employee[0].photoLink!)
             }
-        }else {
-            self.teacherName = ""
         }
     }
     

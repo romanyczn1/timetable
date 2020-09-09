@@ -19,7 +19,6 @@ class LessonCell: UITableViewCell {
             lessonTimeLabel.text = viewModel?.lessonTime
             teacherNameLabel.text = viewModel?.teacherName
             lessonAuditoryLabel.text = viewModel?.lessonAuditory
-            teacherImageView.image = viewModel?.teacherImage
             self.myView.backgroundColor = viewModel?.cellColor
         }
     }
@@ -71,6 +70,7 @@ class LessonCell: UITableViewCell {
     
     let teacherImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.clipsToBounds = true
@@ -103,17 +103,17 @@ class LessonCell: UITableViewCell {
         teacherImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         teacherImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
-        lessonNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 7).isActive = true
+        lessonNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
         lessonNameLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
         lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 1).isActive = true
         lessonNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
         
-        lessonTimeLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 7).isActive = true
+        lessonTimeLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
         lessonTimeLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
         lessonTimeLabel.topAnchor.constraint(equalTo: self.lessonNameLabel.bottomAnchor, constant: 1).isActive = true
         lessonTimeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
         
-        teacherNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 7).isActive = true
+        teacherNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
         teacherNameLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
         teacherNameLabel.topAnchor.constraint(equalTo: self.lessonTimeLabel.bottomAnchor, constant: 1).isActive = true
         teacherNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
@@ -129,10 +129,16 @@ class LessonCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.teacherImageView.isHidden = true
+    }
 }
 
 extension LessonCell: TableViewCellViewModelDelegate {
-    func updateImage(image: UIImage?) {
+    func updateImage(image: UIImage) {
+        self.teacherImageView.isHidden = false
         self.teacherImageView.image = image
     }
     

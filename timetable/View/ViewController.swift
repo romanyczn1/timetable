@@ -118,7 +118,6 @@ extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! DateCell
         let date = cell.viewModel?.date
-        print(date!)
         viewModel?.setDate(date: date!, indexPath: indexPath)
         collectionView.reloadData()
         tableView.reloadData()
