@@ -13,6 +13,7 @@ protocol ViewControllerViewModelType: class {
     func leftSwipeOccured()
     func tableViewCellViewModel(forSubgroup subgroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType?
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType?
+    func headerViewViewModel() -> HeaderViewViewModelType?
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int
     func numberOfRowsInCollectionView() -> Int
     func getTimetableData(forGroup group: String, completion: @escaping () -> Void)

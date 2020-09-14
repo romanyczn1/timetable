@@ -17,6 +17,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     var currentWeekday: Int
     
     var date = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
+    var startDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var selectedSchoolWeek: Int?
     
     let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -33,6 +34,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         } else {
             self.date.selectedWeekday = self.currentWeekday - 2
         }
+        self.startDate = self.date
     }
     
     func getTimetableData(forGroup group: String, completion: @escaping () -> Void) {
@@ -40,6 +42,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         fetcher!.getTimetable(forGroupId: group) { [weak self] (timetable, error) in
             if error != nil { return }
             self?.timetable = timetable
+            self?.date = self!.startDate
             self?.selectedSchoolWeek = timetable?.currentWeekNumber
             completion()
         }
@@ -58,9 +61,11 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         }
         if self.date.selectedWeekday == -1 {
             self.date.selectedWeekday = 6
-            self.selectedSchoolWeek! -= 1
-            if self.selectedSchoolWeek == 0 {
-                self.selectedSchoolWeek = 4
+            if timetable != nil {
+                self.selectedSchoolWeek! -= 1
+                if self.selectedSchoolWeek == 0 {
+                    self.selectedSchoolWeek = 4
+                }
             }
         }
     }
@@ -78,9 +83,11 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         }
         if self.date.selectedWeekday == 7 {
             self.date.selectedWeekday = 0
-            self.selectedSchoolWeek! += 1
-            if self.selectedSchoolWeek == 5 {
-                self.selectedSchoolWeek = 1
+            if timetable != nil {
+                self.selectedSchoolWeek! += 1
+                if self.selectedSchoolWeek == 5 {
+                    self.selectedSchoolWeek = 1
+                }
             }
         }
     }
@@ -106,6 +113,9 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         return 7
     }
     
+    func headerViewViewModel() -> HeaderViewViewModelType? {
+        return HeaderViewViewModel.init(forDate: date)
+    }
     
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType? {
         return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: MyDate.init(day: self.date.day, month: self.date.month, year: self.date.year, selectedWeekday: self.date.selectedWeekday))

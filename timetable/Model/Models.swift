@@ -49,6 +49,10 @@ struct Employee: Decodable {
     let fio: String
 }
 
+struct Group: Decodable {
+    let name: String
+}
+
 extension Employee: Equatable {
     static func == (firstEmployee: Employee, secondEmployee: Employee) -> Bool {
         if firstEmployee.fio == secondEmployee.fio {

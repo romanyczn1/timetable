@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l6g-xr-3Xv">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +54,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="BFL-FP-MCE">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="l6g-xr-3Xv" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="l6g-xr-3Xv" customClass="TabBarController" customModule="timetable" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5CZ-xZ-2kl">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -62,29 +63,105 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="A4g-OX-PEf"/>
-                        <segue destination="6aY-pb-q5I" kind="relationship" relationship="viewControllers" id="cRL-9K-qD0"/>
+                        <segue destination="exv-AA-CHk" kind="relationship" relationship="viewControllers" id="cRL-9K-qD0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YsJ-eW-bph" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="106.47321428571428"/>
         </scene>
-        <!--Item-->
+        <!--Groups View Controller-->
         <scene sceneID="hGX-7h-L7A">
             <objects>
-                <viewController id="6aY-pb-q5I" sceneMemberID="viewController">
+                <viewController id="6aY-pb-q5I" customClass="GroupsViewController" customModule="timetable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vil-Tp-6tc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tsv-2d-5Zd">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="waZ-vn-DbM" firstAttribute="bottom" secondItem="Tsv-2d-5Zd" secondAttribute="bottom" id="UAE-L9-gWX"/>
+                            <constraint firstItem="waZ-vn-DbM" firstAttribute="trailing" secondItem="Tsv-2d-5Zd" secondAttribute="trailing" id="gII-sK-hb6"/>
+                            <constraint firstItem="Tsv-2d-5Zd" firstAttribute="leading" secondItem="waZ-vn-DbM" secondAttribute="leading" id="rGR-an-tEm"/>
+                            <constraint firstItem="Tsv-2d-5Zd" firstAttribute="top" secondItem="waZ-vn-DbM" secondAttribute="top" id="zmZ-6g-4NC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="waZ-vn-DbM"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="tQA-XF-QQ8"/>
-                    <navigationItem key="navigationItem" id="wGE-85-D5b"/>
+                    <navigationItem key="navigationItem" id="wGE-85-D5b">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="QEm-wx-oP2">
+                            <connections>
+                                <segue destination="TCr-KZ-5BC" kind="show" id="dYC-09-QdC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Tsv-2d-5Zd" id="iUp-4n-UjA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVO-EN-HVR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="500"/>
+            <point key="canvasLocation" x="2007.2463768115942" y="499.55357142857139"/>
+        </scene>
+        <!--Adding Group Table View Controller-->
+        <scene sceneID="Y4l-RN-tUu">
+            <objects>
+                <tableViewController id="TCr-KZ-5BC" customClass="AddingGroupTableViewController" customModule="timetable" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="97C-Yx-VAO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="5G4-4U-Gdh">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="AOn-9Y-Vr2" customClass="AddingGroupTableViewControllerCell" customModule="timetable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AOn-9Y-Vr2" id="7wc-OI-JOc">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TCr-KZ-5BC" id="OGc-CG-1t7"/>
+                            <outlet property="delegate" destination="TCr-KZ-5BC" id="0Kw-kx-XsX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="zVp-mS-ipH"/>
+                    <connections>
+                        <outlet property="searchBar" destination="5G4-4U-Gdh" id="Uhr-PU-O1P"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PaI-9q-upO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2796" y="498"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="rha-Xj-aOd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="exv-AA-CHk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="tQA-XF-QQ8"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bn2-Wa-lUH">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6aY-pb-q5I" kind="relationship" relationship="rootViewController" id="upv-kM-OmR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrJ-Sm-kCG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1097.1014492753625" y="499.55357142857139"/>
         </scene>
     </scenes>
 </document>

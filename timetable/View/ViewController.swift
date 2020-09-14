@@ -4,8 +4,6 @@
 //
 //  Created by Roman Bukh on 8/29/20.
 //  Copyright © 2020 Roman Bukharin. All rights reserved.
-// надо сделать чтобы при нажатии на день все было четко в частности чтобы менялся день и мес>ц
-// во вью модели вьюконтроллера счас вообще все нахер к чертям забагано
 
 import UIKit
 
@@ -13,22 +11,45 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
+    var headerView: HeaderView!
     
     var viewModel: ViewControllerViewModelType?
-    var selectedGroup: String = "872303"
+    var selectedGroup: String = "" {
+        didSet{
+            viewModel?.getTimetableData(forGroup: selectedGroup, completion: { [weak self] in
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    self?.collectionView.reloadData()
+                    self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
+                }
+            })
+        }
+    }
     var selectedSubgroup: Int? = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ViewControllerViewModel()
-        viewModel?.getTimetableData(forGroup: selectedGroup, completion: { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        })
-        setUpTableView()
+        setUpViewModel()
+        setUpHeaderView()
         setUpCollectionView()
+        setUpTableView()
+    }
+    
+    private func setUpViewModel(){
+        self.viewModel = ViewControllerViewModel()
+    }
+    
+    private func setUpHeaderView(){
+        let view = HeaderView()
+        view.viewModel = viewModel!.headerViewViewModel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(view)
+        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        self.headerView = view
     }
     
     private func setUpCollectionView() {
@@ -39,7 +60,7 @@ class ViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
@@ -47,7 +68,6 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LessonCell.self, forCellReuseIdentifier: "LessonCell")
-        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         let leftSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeHandler))
@@ -60,13 +80,17 @@ class ViewController: UIViewController {
 
     @objc func leftSwipeHandler(){
         viewModel?.leftSwipeOccured()
-        tableView.reloadData()
+        self.headerView.viewModel = viewModel!.headerViewViewModel()
+//        tableView.reloadData()
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .left)
         collectionView.reloadData()
     }
     
     @objc func rightSwipeHandler(){
         viewModel?.rightSwipeOccured()
-        tableView.reloadData()
+        self.headerView.viewModel = viewModel!.headerViewViewModel()
+//        tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: 0), with: .right)
         collectionView.reloadData()
     }
 }

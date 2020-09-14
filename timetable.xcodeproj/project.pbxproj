@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		601DD1FA2502CC8400FDF5B9 /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DD1F92502CC8400FDF5B9 /* MyDate.swift */; };
 		60ADF68A24FA838800667B74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68924FA838800667B74 /* AppDelegate.swift */; };
-		60ADF68C24FA838800667B74 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68B24FA838800667B74 /* SceneDelegate.swift */; };
 		60ADF68E24FA838800667B74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68D24FA838800667B74 /* ViewController.swift */; };
 		60ADF69124FA838800667B74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF68F24FA838800667B74 /* Main.storyboard */; };
 		60ADF69324FA838C00667B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF69224FA838C00667B74 /* Assets.xcassets */; };
@@ -25,13 +24,34 @@
 		60CEFB9B24FC4FFC006A66F4 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CEFB9A24FC4FFC006A66F4 /* CollectionViewCell.swift */; };
 		60CEFB9D24FD71B1006A66F4 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CEFB9C24FD71B1006A66F4 /* TableViewCellViewModel.swift */; };
 		60CEFB9F2501552F006A66F4 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CEFB9E2501552F006A66F4 /* CollectionViewCellViewModel.swift */; };
+		60E5E5DB250D5B1700F5CDAD /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5DA250D5B1700F5CDAD /* CoreDataStack.swift */; };
+		60E5E5DD250D5EB700F5CDAD /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5DC250D5EB700F5CDAD /* GroupsViewController.swift */; };
+		60E5E5DF250D615600F5CDAD /* GroupsViewControllerViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5DE250D615600F5CDAD /* GroupsViewControllerViewModelType.swift */; };
+		60E5E5E1250D61A900F5CDAD /* GroupsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5E0250D61A900F5CDAD /* GroupsViewControllerViewModel.swift */; };
+		60E5E5E3250D626C00F5CDAD /* AddingGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5E2250D626C00F5CDAD /* AddingGroupTableViewController.swift */; };
+		60E5E5E5250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5E4250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift */; };
+		60E5E5E7250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5E6250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift */; };
+		60E5E5EB250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5EA250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift */; };
+		60E5E5ED250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5EC250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift */; };
+		60E5E5EF250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5EE250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift */; };
+		60E5E5F1250E414800F5CDAD /* GroupsViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F0250E414800F5CDAD /* GroupsViewControllerCell.swift */; };
+		60E5E5F3250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F2250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift */; };
+		60E5E5F5250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F4250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift */; };
+		60E5E5F8250E460400F5CDAD /* Timetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */; };
+		60E5E5FF250E604200F5CDAD /* Groupa+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */; };
+		60E5E600250E604200F5CDAD /* Groupa+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */; };
+		60E5E603250EB23700F5CDAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E602250EB23700F5CDAD /* TabBarController.swift */; };
+		60E5E605250EB2A700F5CDAD /* TabBarControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E604250EB2A700F5CDAD /* TabBarControllerViewModel.swift */; };
+		60E5E607250EB2B000F5CDAD /* TabBarControllerViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E606250EB2B000F5CDAD /* TabBarControllerViewModelType.swift */; };
+		60F7FB12250BCB470076D997 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F7FB11250BCB470076D997 /* HeaderView.swift */; };
+		60F7FB14250BCE600076D997 /* HeaderVIewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F7FB13250BCE600076D997 /* HeaderVIewViewModelType.swift */; };
+		60F7FB16250BCE7E0076D997 /* HeaderViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F7FB15250BCE7E0076D997 /* HeaderViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		601DD1F92502CC8400FDF5B9 /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		60ADF68624FA838800667B74 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60ADF68924FA838800667B74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		60ADF68B24FA838800667B74 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		60ADF68D24FA838800667B74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		60ADF69024FA838800667B74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		60ADF69224FA838C00667B74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,6 +68,29 @@
 		60CEFB9A24FC4FFC006A66F4 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		60CEFB9C24FD71B1006A66F4 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		60CEFB9E2501552F006A66F4 /* CollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		60E5E5DA250D5B1700F5CDAD /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		60E5E5DC250D5EB700F5CDAD /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		60E5E5DE250D615600F5CDAD /* GroupsViewControllerViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerViewModelType.swift; sourceTree = "<group>"; };
+		60E5E5E0250D61A900F5CDAD /* GroupsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerViewModel.swift; sourceTree = "<group>"; };
+		60E5E5E2250D626C00F5CDAD /* AddingGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewController.swift; sourceTree = "<group>"; };
+		60E5E5E4250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewControllerViewModel.swift; sourceTree = "<group>"; };
+		60E5E5E6250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewControllerViewModelType.swift; sourceTree = "<group>"; };
+		60E5E5EA250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewControllerCell.swift; sourceTree = "<group>"; };
+		60E5E5EC250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewControllerCellViewModel.swift; sourceTree = "<group>"; };
+		60E5E5EE250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingGroupTableViewControllerCellViewModelType.swift; sourceTree = "<group>"; };
+		60E5E5F0250E414800F5CDAD /* GroupsViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerCell.swift; sourceTree = "<group>"; };
+		60E5E5F2250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerCellViewModel.swift; sourceTree = "<group>"; };
+		60E5E5F4250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerCellViewModelType.swift; sourceTree = "<group>"; };
+		60E5E5F7250E460400F5CDAD /* Timetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Timetable.xcdatamodel; sourceTree = "<group>"; };
+		60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Timetable v2.xcdatamodel"; sourceTree = "<group>"; };
+		60E5E602250EB23700F5CDAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		60E5E604250EB2A700F5CDAD /* TabBarControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerViewModel.swift; sourceTree = "<group>"; };
+		60E5E606250EB2B000F5CDAD /* TabBarControllerViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerViewModelType.swift; sourceTree = "<group>"; };
+		60F7FB11250BCB470076D997 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		60F7FB13250BCE600076D997 /* HeaderVIewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderVIewViewModelType.swift; sourceTree = "<group>"; };
+		60F7FB15250BCE7E0076D997 /* HeaderViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,10 +127,13 @@
 				60CEFB8724FAF666006A66F4 /* ViewModel */,
 				60CEFB8824FAF685006A66F4 /* Model */,
 				60CEFB8D24FAFD3F006A66F4 /* Services */,
-				60ADF68F24FA838800667B74 /* Main.storyboard */,
+				60F7FB10250BCB390076D997 /* Utils */,
 				60ADF69224FA838C00667B74 /* Assets.xcassets */,
+				60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */,
+				60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */,
+				60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */,
+				60ADF68F24FA838800667B74 /* Main.storyboard */,
 				60ADF69424FA838C00667B74 /* LaunchScreen.storyboard */,
-				60ADF68B24FA838800667B74 /* SceneDelegate.swift */,
 				60ADF68924FA838800667B74 /* AppDelegate.swift */,
 				60ADF69724FA838C00667B74 /* Info.plist */,
 			);
@@ -97,9 +143,15 @@
 		60CEFB8724FAF666006A66F4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60E5E604250EB2A700F5CDAD /* TabBarControllerViewModel.swift */,
 				60CEFB9024FBE529006A66F4 /* ViewControllerViewModel.swift */,
 				60CEFB9C24FD71B1006A66F4 /* TableViewCellViewModel.swift */,
 				60CEFB9E2501552F006A66F4 /* CollectionViewCellViewModel.swift */,
+				60F7FB15250BCE7E0076D997 /* HeaderViewViewModel.swift */,
+				60E5E5E0250D61A900F5CDAD /* GroupsViewControllerViewModel.swift */,
+				60E5E5F2250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift */,
+				60E5E5E4250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift */,
+				60E5E5EC250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift */,
 				60CEFB8C24FAFD23006A66F4 /* Protocols */,
 			);
 			path = ViewModel;
@@ -117,9 +169,14 @@
 		60CEFB8924FAF68F006A66F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				60E5E602250EB23700F5CDAD /* TabBarController.swift */,
 				60ADF68D24FA838800667B74 /* ViewController.swift */,
 				60CEFB9824FC4F85006A66F4 /* TableViewCell.swift */,
 				60CEFB9A24FC4FFC006A66F4 /* CollectionViewCell.swift */,
+				60E5E5DC250D5EB700F5CDAD /* GroupsViewController.swift */,
+				60E5E5F0250E414800F5CDAD /* GroupsViewControllerCell.swift */,
+				60E5E5E2250D626C00F5CDAD /* AddingGroupTableViewController.swift */,
+				60E5E5EA250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -127,9 +184,15 @@
 		60CEFB8C24FAFD23006A66F4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				60E5E606250EB2B000F5CDAD /* TabBarControllerViewModelType.swift */,
 				60CEFB9224FBE53B006A66F4 /* ViewControllerViewModelType.swift */,
 				60CEFB9424FC10CD006A66F4 /* TableViewCellViewModelType.swift */,
 				60CEFB9624FC10FB006A66F4 /* CollectionViewCellViewModelType.swift */,
+				60F7FB13250BCE600076D997 /* HeaderVIewViewModelType.swift */,
+				60E5E5DE250D615600F5CDAD /* GroupsViewControllerViewModelType.swift */,
+				60E5E5F4250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift */,
+				60E5E5E6250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift */,
+				60E5E5EE250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -139,8 +202,17 @@
 			children = (
 				60BD452324FAAD7700A432E8 /* NetwrokDataFetcher.swift */,
 				60CEFB8E24FAFD57006A66F4 /* NetworkService.swift */,
+				60E5E5DA250D5B1700F5CDAD /* CoreDataStack.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		60F7FB10250BCB390076D997 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				60F7FB11250BCB470076D997 /* HeaderView.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,20 +286,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60E5E607250EB2B000F5CDAD /* TabBarControllerViewModelType.swift in Sources */,
 				60CEFB9724FC10FB006A66F4 /* CollectionViewCellViewModelType.swift in Sources */,
 				60BD452424FAAD7700A432E8 /* NetwrokDataFetcher.swift in Sources */,
 				60CEFB9524FC10CD006A66F4 /* TableViewCellViewModelType.swift in Sources */,
+				60E5E5F5250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift in Sources */,
+				60E5E5DB250D5B1700F5CDAD /* CoreDataStack.swift in Sources */,
+				60E5E5EF250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift in Sources */,
 				60CEFB8F24FAFD57006A66F4 /* NetworkService.swift in Sources */,
+				60E5E5FF250E604200F5CDAD /* Groupa+CoreDataClass.swift in Sources */,
+				60E5E605250EB2A700F5CDAD /* TabBarControllerViewModel.swift in Sources */,
+				60E5E5E1250D61A900F5CDAD /* GroupsViewControllerViewModel.swift in Sources */,
 				60ADF68E24FA838800667B74 /* ViewController.swift in Sources */,
+				60E5E5F1250E414800F5CDAD /* GroupsViewControllerCell.swift in Sources */,
 				60CEFB9924FC4F85006A66F4 /* TableViewCell.swift in Sources */,
+				60E5E5E3250D626C00F5CDAD /* AddingGroupTableViewController.swift in Sources */,
+				60E5E5E5250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift in Sources */,
 				60ADF68A24FA838800667B74 /* AppDelegate.swift in Sources */,
+				60E5E5ED250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift in Sources */,
+				60E5E5F3250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift in Sources */,
 				60CEFB9F2501552F006A66F4 /* CollectionViewCellViewModel.swift in Sources */,
+				60E5E5DF250D615600F5CDAD /* GroupsViewControllerViewModelType.swift in Sources */,
+				60E5E5E7250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift in Sources */,
 				60CEFB9B24FC4FFC006A66F4 /* CollectionViewCell.swift in Sources */,
 				60CEFB9D24FD71B1006A66F4 /* TableViewCellViewModel.swift in Sources */,
+				60E5E600250E604200F5CDAD /* Groupa+CoreDataProperties.swift in Sources */,
+				60E5E603250EB23700F5CDAD /* TabBarController.swift in Sources */,
+				60F7FB14250BCE600076D997 /* HeaderVIewViewModelType.swift in Sources */,
+				60F7FB12250BCB470076D997 /* HeaderView.swift in Sources */,
+				60F7FB16250BCE7E0076D997 /* HeaderViewViewModel.swift in Sources */,
 				601DD1FA2502CC8400FDF5B9 /* MyDate.swift in Sources */,
-				60ADF68C24FA838800667B74 /* SceneDelegate.swift in Sources */,
+				60E5E5DD250D5EB700F5CDAD /* GroupsViewController.swift in Sources */,
+				60E5E5F8250E460400F5CDAD /* Timetable.xcdatamodeld in Sources */,
 				60CEFB9124FBE529006A66F4 /* ViewControllerViewModel.swift in Sources */,
 				60CEFB8224FAC617006A66F4 /* Models.swift in Sources */,
+				60E5E5EB250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift in Sources */,
 				60CEFB9324FBE53B006A66F4 /* ViewControllerViewModelType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S5F23JMSTM;
 				INFOPLIST_FILE = timetable/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -393,6 +487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S5F23JMSTM;
 				INFOPLIST_FILE = timetable/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -426,6 +521,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */,
+				60E5E5F7250E460400F5CDAD /* Timetable.xcdatamodel */,
+			);
+			currentVersion = 60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */;
+			path = Timetable.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 60ADF67E24FA838800667B74 /* Project object */;
 }

@@ -18,6 +18,7 @@ protocol TableViewCellViewModelType {
     var teacherLastName: String? { get }
     var tacherFirstName: String? { get }
     var teacherMiddleName: String? { get }
+    var lessonTypeName: String { get }
     var cellColor: UIColor { get }
     var delegate: TableViewCellViewModelDelegate? { get set }
 }

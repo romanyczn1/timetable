@@ -17,8 +17,10 @@ class LessonCell: UITableViewCell {
         didSet{
             lessonNameLabel.text = viewModel?.lessonName
             lessonTimeLabel.text = viewModel?.lessonTime
-            teacherNameLabel.text = viewModel?.teacherName
+            teacherFirstAndMiddleNameLabel.text = "\(viewModel?.tacherFirstName ?? "")  \(viewModel?.teacherMiddleName ?? "")"
+            teacherLastNameLabel.text = viewModel?.teacherLastName
             lessonAuditoryLabel.text = viewModel?.lessonAuditory
+            lessonTypeLabel.text = viewModel?.lessonTypeName
             self.myView.backgroundColor = viewModel?.cellColor
         }
     }
@@ -26,16 +28,15 @@ class LessonCell: UITableViewCell {
     let myView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 20
         return view
     }()
     
     let lessonNameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont(name: "AvenirNext-Bold", size: 20)
+        label.alpha = 0.65
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,25 +45,54 @@ class LessonCell: UITableViewCell {
     let lessonTimeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont(name: "HiraginoSans-W6", size: 12)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let teacherNameLabel: UILabel = {
+    let teacherFirstAndMiddleNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont(name: "Avenir-Medium", size: 16)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let teacherLastNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont(name: "Avenir-Light", size: 16)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let lessonTypeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        view.layer.cornerRadius = 10
+        view.alpha = 0.65
+        return view
+    }()
+    
+    let lessonTypeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont(name: "Avenir-Medium", size: 13)
+        label.textColor = .white
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
     
     let lessonAuditoryLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont(name: "HiraginoSans-W6", size: 12)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -70,12 +100,12 @@ class LessonCell: UITableViewCell {
     
     let teacherImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.isHidden = true
+//        imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.clipsToBounds = true
         imageView.layer.borderWidth = 1
-        imageView.layer.cornerRadius = 25
+        imageView.layer.cornerRadius = 20
         return imageView
     }()
     
@@ -86,7 +116,9 @@ class LessonCell: UITableViewCell {
     }
     
     private func setUpConstraints() {
+        
         self.contentView.addSubview(myView)
+        
         myView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 7).isActive = true
         myView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -7).isActive = true
         myView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 7).isActive = true
@@ -94,36 +126,54 @@ class LessonCell: UITableViewCell {
         
         myView.addSubview(lessonNameLabel)
         myView.addSubview(lessonTimeLabel)
-        myView.addSubview(teacherNameLabel)
-        myView.addSubview(lessonAuditoryLabel)
         myView.addSubview(teacherImageView)
+        myView.addSubview(lessonTypeView)
+        myView.addSubview(lessonTypeLabel)
+        myView.addSubview(lessonAuditoryLabel)
+        myView.addSubview(teacherFirstAndMiddleNameLabel)
+        myView.addSubview(teacherLastNameLabel)
         
-        teacherImageView.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 10).isActive = true
-        teacherImageView.centerYAnchor.constraint(equalTo: self.myView.centerYAnchor).isActive = true
-        teacherImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        teacherImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        lessonNameLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
+        lessonNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 15).isActive = true
+        lessonNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 15).isActive = true
         
-        lessonNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
-        lessonNameLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
-        lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 1).isActive = true
-        lessonNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        lessonTimeLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
+        lessonTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        lessonTimeLabel.topAnchor.constraint(equalTo: self.lessonNameLabel.bottomAnchor, constant: 0).isActive = true
+        lessonTimeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 15).isActive = true
         
-        lessonTimeLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
-        lessonTimeLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
-        lessonTimeLabel.topAnchor.constraint(equalTo: self.lessonNameLabel.bottomAnchor, constant: 1).isActive = true
-        lessonTimeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        teacherImageView.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
+        teacherImageView.topAnchor.constraint(equalTo: self.lessonTimeLabel.bottomAnchor, constant: 12).isActive = true
+        teacherImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        teacherImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        teacherImageView.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -15).isActive = true
         
-        teacherNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 0).isActive = true
-        teacherNameLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
-        teacherNameLabel.topAnchor.constraint(equalTo: self.lessonTimeLabel.bottomAnchor, constant: 1).isActive = true
-        teacherNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        lessonTypeView.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -15).isActive = true
+        lessonTypeView.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        lessonTypeView.centerYAnchor.constraint(equalTo: self.lessonNameLabel.centerYAnchor, constant: 0).isActive = true
+        lessonTypeView.heightAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
         
-        lessonAuditoryLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 7).isActive = true
-        lessonAuditoryLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -7).isActive = true
-        lessonAuditoryLabel.topAnchor.constraint(equalTo: self.teacherNameLabel.bottomAnchor, constant: 1).isActive = true
-        lessonAuditoryLabel.bottomAnchor.constraint(equalTo: self.myView.bottomAnchor, constant: -1).isActive = true
+        lessonTypeLabel.trailingAnchor.constraint(equalTo: self.lessonTypeView.trailingAnchor, constant: -7).isActive = true
+        lessonTypeLabel.leadingAnchor.constraint(equalTo: self.lessonTypeView.leadingAnchor, constant: 7).isActive = true
+        lessonTypeLabel.topAnchor.constraint(equalTo: self.lessonTypeView.topAnchor, constant: 1.5).isActive = true
+        lessonTypeLabel.bottomAnchor.constraint(equalTo: self.lessonTypeView.bottomAnchor, constant: -1.5).isActive = true
         
+        lessonAuditoryLabel.trailingAnchor.constraint(equalTo: self.myView.trailingAnchor, constant: -15).isActive = true
+        lessonAuditoryLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
+        lessonAuditoryLabel.topAnchor.constraint(equalTo: self.lessonTypeLabel.bottomAnchor, constant: 5).isActive = true
+        lessonAuditoryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 15).isActive = true
         
+        teacherFirstAndMiddleNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 9).isActive = true
+        teacherFirstAndMiddleNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
+        teacherFirstAndMiddleNameLabel.topAnchor.constraint(equalTo: self.teacherImageView.topAnchor, constant: 0).isActive = true
+        teacherFirstAndMiddleNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        
+        teacherLastNameLabel.leadingAnchor.constraint(equalTo: self.teacherImageView.trailingAnchor, constant: 9).isActive = true
+        teacherLastNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
+        teacherLastNameLabel.bottomAnchor.constraint(equalTo: self.teacherImageView.bottomAnchor, constant: 0).isActive = true
+        teacherLastNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+
     }
     
     required init?(coder: NSCoder) {
@@ -132,13 +182,14 @@ class LessonCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.teacherImageView.isHidden = true
+        self.teacherImageView.image = nil
+//        self.teacherImageView.isHidden = true
     }
 }
 
 extension LessonCell: TableViewCellViewModelDelegate {
     func updateImage(image: UIImage) {
-        self.teacherImageView.isHidden = false
+//        self.teacherImageView.isHidden = false
         self.teacherImageView.image = image
     }
     
