@@ -13,4 +13,5 @@ protocol TabBarControllerViewModelType {
     var coreDataStack: CoreDataStack { get }
     var fetchedResultsController: NSFetchedResultsController<Groupa> { get }
     func groupsViewControllerViewModel() -> GroupsViewControllerViewModelType
+    func viewControllerViewModel() -> ViewControllerViewModelType
 }

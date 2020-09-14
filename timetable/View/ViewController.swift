@@ -6,6 +6,7 @@
 //  Copyright © 2020 Roman Bukharin. All rights reserved.
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -13,7 +14,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var headerView: HeaderView!
     
-    var viewModel: ViewControllerViewModelType?
+    var viewModel: ViewControllerViewModelType?{
+        didSet {
+            self.selectedSubgroup = viewModel?.selectedSubgroup
+        }
+    }
     var selectedGroup: String = "" {
         didSet{
             viewModel?.getTimetableData(forGroup: selectedGroup, completion: { [weak self] in
@@ -25,7 +30,11 @@ class ViewController: UIViewController {
             })
         }
     }
-    var selectedSubgroup: Int? = 1
+    var selectedSubgroup: Int? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +45,12 @@ class ViewController: UIViewController {
         setUpTableView()
     }
     
-    private func setUpViewModel(){
-        self.viewModel = ViewControllerViewModel()
+    private func setUpViewModel() {
+        let tabBar = tabBarController as? TabBarController
+        viewModel = tabBar?.viewModel?.viewControllerViewModel()
+        viewModel?.tryGetSelectedGroup(complition: { (groupName) in
+            self.selectedGroup = groupName!
+        })
     }
     
     private func setUpHeaderView(){

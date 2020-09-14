@@ -95,7 +95,7 @@
                     <navigationItem key="navigationItem" id="wGE-85-D5b">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="QEm-wx-oP2">
                             <connections>
-                                <segue destination="TCr-KZ-5BC" kind="show" id="dYC-09-QdC"/>
+                                <segue destination="TCr-KZ-5BC" kind="show" identifier="listToAdd" id="dYC-09-QdC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

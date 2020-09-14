@@ -10,6 +10,10 @@ import Foundation
 import CoreData
 
 final class TabBarControllerViewModel: TabBarControllerViewModelType {
+    func viewControllerViewModel() -> ViewControllerViewModelType {
+        return ViewControllerViewModel.init(fetchedResultsController: fetchedResultsController)
+    }
+    
     
     lazy var coreDataStack = CoreDataStack(modelName: "Timetable")
     lazy var fetchedResultsController: NSFetchedResultsController<Groupa> = {

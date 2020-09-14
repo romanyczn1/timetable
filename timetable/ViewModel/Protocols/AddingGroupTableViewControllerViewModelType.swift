@@ -14,4 +14,5 @@ protocol AddingGroupTableViewControllerViewModelType {
     func numberOfRows() -> Int
     func textDidChanged(withText text: String)
     func synchWithSearch(serachText text: String)
+    func newGroupSelected(atIndexPath indexPath: IndexPath)
 }

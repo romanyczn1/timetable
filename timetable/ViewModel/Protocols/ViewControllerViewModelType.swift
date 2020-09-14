@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import CoreData
 
 protocol ViewControllerViewModelType: class {
+    var selectedSubgroup: Int? { get }
     func rightSwipeOccured()
     func leftSwipeOccured()
     func tableViewCellViewModel(forSubgroup subgroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType?
@@ -18,4 +20,6 @@ protocol ViewControllerViewModelType: class {
     func numberOfRowsInCollectionView() -> Int
     func getTimetableData(forGroup group: String, completion: @escaping () -> Void)
     func setDate(date: MyDate, indexPath: IndexPath)
+    var fetchedResultsController: NSFetchedResultsController<Groupa> { get }
+    func tryGetSelectedGroup(complition: @escaping (String?) -> Void)
 }

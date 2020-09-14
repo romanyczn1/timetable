@@ -18,7 +18,6 @@ final class AddingGroupTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = AddingGroupTableViewControllerViewModel()
         viewModel?.getGroupsData {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
@@ -67,10 +66,7 @@ final class AddingGroupTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! AddingGroupTableViewControllerCell
-//        if let groupsVC = self.navigationController?.viewControllers[0] as? GroupsViewController {
-//            groupsVC.viewModel?.cellTapped(withGroupName: cell.viewModel!.groupName)
-//        }
+        viewModel?.newGroupSelected(atIndexPath: indexPath)
         self.navigationController?.popViewController(animated: true)
     }
 }

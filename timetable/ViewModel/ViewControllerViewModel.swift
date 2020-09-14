@@ -8,11 +8,14 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class ViewControllerViewModel: ViewControllerViewModelType {
     
     var fetcher: DataFetcher?
     var timetable: Timetable?
+    var fetchedResultsController: NSFetchedResultsController<Groupa>
+    var selectedSubgroup: Int?
     
     var currentWeekday: Int
     
@@ -22,7 +25,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    init(){
+    init(fetchedResultsController: NSFetchedResultsController<Groupa>){
         let date = Date()
         let calendar = Calendar.current
         self.currentWeekday = calendar.component(.weekday, from: date)
@@ -35,6 +38,17 @@ class ViewControllerViewModel: ViewControllerViewModelType {
             self.date.selectedWeekday = self.currentWeekday - 2
         }
         self.startDate = self.date
+        self.fetchedResultsController = fetchedResultsController
+    }
+    
+    func tryGetSelectedGroup(complition: @escaping (String?) -> Void) {
+        fetchedResultsController.fetchedObjects?.map({ (group) in
+            if group.isMain == true {
+                complition(group.groupName)
+                self.selectedSubgroup = Int(group.subgroupNumb)
+                return 
+            }
+        })
     }
     
     func getTimetableData(forGroup group: String, completion: @escaping () -> Void) {
@@ -101,10 +115,17 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {
         if date.selectedWeekday != 6 {
-            let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
-                lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
-            })
-            return filteredLessons?.count ?? 0
+            if subgroup == 0 {
+                let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                    lesson.weekNumber.contains(selectedSchoolWeek!)
+                })
+                return filteredLessons?.count ?? 0
+            } else {
+                let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                    lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
+                })
+                return filteredLessons?.count ?? 0
+            }
         }
         return 0
     }
@@ -127,10 +148,17 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     }
     
     private func getNeededLesson(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {
-        let weekFilteredLesson = self.timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
-            lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subGroup)
-        })
-        return weekFilteredLesson![indexPath.row]
+        if subGroup == 0 {
+            let weekFilteredLesson = self.timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                lesson.weekNumber.contains(selectedSchoolWeek!)
+            })
+            return weekFilteredLesson![indexPath.row]
+        } else {
+            let weekFilteredLesson = self.timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subGroup)
+            })
+            return weekFilteredLesson![indexPath.row]
+        }
     }
     
     

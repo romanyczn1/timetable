@@ -34,6 +34,14 @@ final class GroupsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "listToAdd" {
+            if let controller = segue.destination as? AddingGroupTableViewController {
+                controller.viewModel = self.viewModel?.addingGroupViewModel()
+            }
+        }
+    }
 }
 
 extension GroupsViewController: UITableViewDataSource {

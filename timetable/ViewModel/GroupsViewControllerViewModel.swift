@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {    
+final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
     
     var fetchedResultsController: NSFetchedResultsController<Groupa>
     var coreDataStack: CoreDataStack
@@ -21,20 +21,34 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
     }
     
     func cellSelected(atIndexPath indexPath: IndexPath, tabBarController: UITabBarController) {
+        guard let controller = tabBarController.viewControllers![0] as? ViewController else { return }
         let group = fetchedResultsController.object(at: indexPath)
-                fetchedResultsController.fetchedObjects?.map({ (group) in
-                    group.isMain = false
-                })
-                group.isMain = true
-                if let controller = tabBarController.viewControllers![0] as? ViewController {
-                    controller.selectedGroup = group.groupName ?? ""
-                }
-                coreDataStack.saveContext()
+        if group.isMain == true {
+            group.subgroupNumb += 1
+            if group.subgroupNumb >= 3 {
+                group.subgroupNumb = 0
+            }
+            controller.selectedSubgroup = Int(group.subgroupNumb)
+            coreDataStack.saveContext()
+        } else {
+            fetchedResultsController.fetchedObjects?.map({ (group) in
+                group.isMain = false
+            })
+            group.isMain = true
+            coreDataStack.saveContext()
+            //надо ж то дселать нормально
+            controller.selectedGroup = group.groupName ?? ""
+            controller.selectedSubgroup = Int(group.subgroupNumb)
+        }
     }
     
     func groupsViewControllerCellViewModel(forIndexPath indexPath: IndexPath) -> GroupsViewControllerCellViewModelType {
         let group = fetchedResultsController.object(at: indexPath)
         return GroupsViewControllerCellViewModel.init(groupName: group.groupName!, subgroupNumb: Int(group.subgroupNumb))
+    }
+    
+    func addingGroupViewModel() -> AddingGroupTableViewControllerViewModelType {
+        return AddingGroupTableViewControllerViewModel.init(fetchedResultsController: fetchedResultsController, coreDataStack: coreDataStack)
     }
     
     func deleteObject(atIndexPath indexPath: IndexPath) {
