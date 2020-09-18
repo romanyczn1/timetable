@@ -55,8 +55,8 @@ class DateCell: UICollectionViewCell {
         self.addSubview(weekdayNameLabel)
         let width = UIScreen.main.bounds.width / 7
         dateLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
-        dateLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        weekdayNameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        weekdayNameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         weekdayNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
         weekdayNameLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor).isActive = true
     }

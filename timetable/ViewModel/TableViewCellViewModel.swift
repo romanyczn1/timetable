@@ -24,11 +24,14 @@ class TableViewCellViewModel: TableViewCellViewModelType {
     var teacherLastName: String?
     var tacherFirstName: String?
     var teacherMiddleName: String?
-    var cellColor: UIColor
+    var firstCellColor: UIColor
+    var secondCellColor: UIColor
+    var subgroupNumb: Int
+    var userSubgroupNumb: Int
     
     weak var delegate: TableViewCellViewModelDelegate?
     
-    init(forLesson lesson: Lesson, forIndexPath idnexPath: IndexPath) {
+    init(forLesson lesson: Lesson, forIndexPath idnexPath: IndexPath, subgroup: Int) {
         self.lessonType = lesson.lessonType
         self.lessonTime = lesson.lessonTime
         self.lessonName = lesson.subject
@@ -37,18 +40,24 @@ class TableViewCellViewModel: TableViewCellViewModelType {
         }
         switch lessonType {
         case "ЛК" :
-            self.cellColor = #colorLiteral(red: 0.3647058824, green: 0.7450980392, blue: 0.6666666667, alpha: 1)
+            self.firstCellColor = UIColor(red: 0, green: 0.87, blue: 0.79, alpha: 1)
+            self.secondCellColor = .white
             self.lessonTypeName = "Лекция"
         case "ПЗ" :
-            self.cellColor = #colorLiteral(red: 1, green: 1, blue: 0.4784313725, alpha: 1)
+            self.firstCellColor = #colorLiteral(red: 1, green: 1, blue: 0.419592581, alpha: 1)
+            self.secondCellColor = .white
             self.lessonTypeName = "Практическое занятие"
         case "ЛР" :
-            self.cellColor = #colorLiteral(red: 0.6117647059, green: 0.5450980392, blue: 0.8392156863, alpha: 1)
+            self.firstCellColor = #colorLiteral(red: 0.6117647059, green: 0.5450980392, blue: 0.8392156863, alpha: 1)
+            self.secondCellColor = .white
             self.lessonTypeName = "Лабараторная"
         default:
-            self.cellColor = UIColor.white
+            self.firstCellColor = .white
+            self.secondCellColor = .white
             self.lessonTypeName = ""
         }
+        self.subgroupNumb = lesson.numSubgroup
+        self.userSubgroupNumb = subgroup
         if lesson.employee != [] {
             self.teacherName = lesson.employee[0].fio
             self.teacherLastName = lesson.employee[0].lastName
@@ -56,11 +65,7 @@ class TableViewCellViewModel: TableViewCellViewModelType {
             self.tacherFirstName = lesson.employee[0].firstName
             if lesson.employee[0].photoLink != nil {
                 downloadImage(fromURL: lesson.employee[0].photoLink!)
-            } else {
-                downloadImage(fromURL: "https://cdn0.iconfinder.com/data/icons/circus-jocker-faces-avatars/66/10-512.png")
             }
-        } else if lesson.employee == [] {
-            downloadImage(fromURL: "https://cdn0.iconfinder.com/data/icons/circus-jocker-faces-avatars/66/10-512.png")
         }
     }
     

@@ -24,7 +24,12 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
         if indexPath.row == date.selectedWeekday {
             color = .blue
         } else {
-            color = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            if #available(iOS 13.0, *) {
+                color = .label
+            } else {
+                // Fallback on earlier versions
+                color = .red
+            }
         }
         setDate(date: date, indexPath: indexPath)
     }

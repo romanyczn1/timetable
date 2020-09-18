@@ -10,4 +10,5 @@ import Foundation
 
 protocol HeaderViewViewModelType {
     var weekdayName: String { get }
+    var weekNumber: String { get }
 }

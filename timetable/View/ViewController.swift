@@ -10,15 +10,16 @@ import CoreData
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     var headerView: HeaderView!
+    lazy var headerViewWrapper: HeaderViewWrapper = {
+        let headerViewWrapper = HeaderViewWrapper()
+        headerViewWrapper.translatesAutoresizingMaskIntoConstraints = false
+        return headerViewWrapper
+    }()
     
-    var viewModel: ViewControllerViewModelType?{
-        didSet {
-            self.selectedSubgroup = viewModel?.selectedSubgroup
-        }
-    }
+    var viewModel: ViewControllerViewModelType?
     var selectedGroup: String = "" {
         didSet{
             viewModel?.getTimetableData(forGroup: selectedGroup, completion: { [weak self] in
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
     }
     var selectedSubgroup: Int? {
         didSet {
-            tableView.reloadData()
+            tableView?.reloadData()
         }
     }
     
@@ -48,8 +49,9 @@ class ViewController: UIViewController {
     private func setUpViewModel() {
         let tabBar = tabBarController as? TabBarController
         viewModel = tabBar?.viewModel?.viewControllerViewModel()
-        viewModel?.tryGetSelectedGroup(complition: { (groupName) in
+        viewModel?.tryGetSelectedGroup(complition: { (groupName, subgroupNumb)  in
             self.selectedGroup = groupName!
+            self.selectedSubgroup = subgroupNumb
         })
     }
     
@@ -60,8 +62,9 @@ class ViewController: UIViewController {
         self.view.addSubview(view)
         view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
         view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        view.heightAnchor.constraint(equalToConstant: 55 + statusBarHeight).isActive = true
         self.headerView = view
     }
     
@@ -71,6 +74,11 @@ class ViewController: UIViewController {
         collectionView.isScrollEnabled = false
         collectionView.register(DateCell.self, forCellWithReuseIdentifier: "DateCell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            collectionView.backgroundColor = .secondarySystemBackground
+        } else {
+            // Fallback on earlier versions
+        }
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         collectionView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor).isActive = true
@@ -78,6 +86,14 @@ class ViewController: UIViewController {
     }
     
     private func setUpTableView() {
+        let tableView = UITableView()
+        self.view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        tableView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LessonCell.self, forCellReuseIdentifier: "LessonCell")
@@ -89,12 +105,12 @@ class ViewController: UIViewController {
         let rightSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightSwipeHandler))
         rightSwipeGestureRecognizer.direction = .right
         tableView.addGestureRecognizer(rightSwipeGestureRecognizer)
+        self.tableView = tableView
     }
 
     @objc func leftSwipeHandler(){
         viewModel?.leftSwipeOccured()
         self.headerView.viewModel = viewModel!.headerViewViewModel()
-//        tableView.reloadData()
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .left)
         collectionView.reloadData()
     }
@@ -102,7 +118,6 @@ class ViewController: UIViewController {
     @objc func rightSwipeHandler(){
         viewModel?.rightSwipeOccured()
         self.headerView.viewModel = viewModel!.headerViewViewModel()
-//        tableView.reloadData()
         tableView.reloadSections(IndexSet(integer: 0), with: .right)
         collectionView.reloadData()
     }
@@ -165,7 +180,7 @@ extension ViewController: UICollectionViewDelegate {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width / 7), height: 70)
+        return CGSize(width: (view.frame.width / 7), height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

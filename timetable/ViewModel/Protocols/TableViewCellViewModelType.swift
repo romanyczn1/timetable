@@ -19,6 +19,9 @@ protocol TableViewCellViewModelType {
     var tacherFirstName: String? { get }
     var teacherMiddleName: String? { get }
     var lessonTypeName: String { get }
-    var cellColor: UIColor { get }
+    var firstCellColor: UIColor { get }
+    var secondCellColor: UIColor { get }
+    var subgroupNumb: Int { get }
+    var userSubgroupNumb: Int { get }
     var delegate: TableViewCellViewModelDelegate? { get set }
 }

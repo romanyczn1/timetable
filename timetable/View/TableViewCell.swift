@@ -21,7 +21,12 @@ class LessonCell: UITableViewCell {
             teacherLastNameLabel.text = viewModel?.teacherLastName
             lessonAuditoryLabel.text = viewModel?.lessonAuditory
             lessonTypeLabel.text = viewModel?.lessonTypeName
-            self.myView.backgroundColor = viewModel?.cellColor
+            subgroupNumbLabel.textColor = viewModel?.firstCellColor
+            if viewModel?.userSubgroupNumb != 0 || viewModel?.subgroupNumb == 0 {
+                subgroupNumbView.isHidden = true
+                subgroupNumbLabel.isHidden = true
+            }
+            subgroupNumbLabel.text = "\(viewModel?.subgroupNumb ?? 9999)"
         }
     }
     
@@ -29,7 +34,16 @@ class LessonCell: UITableViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
+        view.clipsToBounds = true
         return view
+    }()
+    
+    let gradient: CAGradientLayer = {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.locations = [0.2 , 1.9]
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        return gradient
     }()
     
     let lessonNameLabel: UILabel = {
@@ -37,6 +51,23 @@ class LessonCell: UITableViewCell {
         label.font = UIFont(name: "AvenirNext-Bold", size: 20)
         label.alpha = 0.65
         label.textColor = .black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let subgroupNumbView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        view.layer.cornerRadius = 7.5
+        view.alpha = 0.65
+        return view
+    }()
+    
+    let subgroupNumbLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Medium", size: 13)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -80,14 +111,13 @@ class LessonCell: UITableViewCell {
     
     let lessonTypeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont(name: "Avenir-Medium", size: 13)
         label.textColor = .white
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     
     let lessonAuditoryLabel: UILabel = {
         let label = UILabel()
@@ -100,7 +130,6 @@ class LessonCell: UITableViewCell {
     
     let teacherImageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.clipsToBounds = true
@@ -132,11 +161,23 @@ class LessonCell: UITableViewCell {
         myView.addSubview(lessonAuditoryLabel)
         myView.addSubview(teacherFirstAndMiddleNameLabel)
         myView.addSubview(teacherLastNameLabel)
+        myView.addSubview(subgroupNumbView)
+        myView.addSubview(subgroupNumbLabel)
         
         lessonNameLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
         lessonNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
         lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 15).isActive = true
         lessonNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 15).isActive = true
+        
+        subgroupNumbView.leadingAnchor.constraint(equalTo: self.lessonNameLabel.trailingAnchor, constant: 10).isActive = true
+        subgroupNumbView.widthAnchor.constraint(greaterThanOrEqualToConstant: 3).isActive = true
+        subgroupNumbView.centerYAnchor.constraint(equalTo: self.lessonNameLabel.centerYAnchor, constant: 0).isActive = true
+        subgroupNumbView.heightAnchor.constraint(greaterThanOrEqualToConstant: 3).isActive = true
+        
+        subgroupNumbLabel.trailingAnchor.constraint(equalTo: self.subgroupNumbView.trailingAnchor, constant: -4).isActive = true
+        subgroupNumbLabel.leadingAnchor.constraint(equalTo: self.subgroupNumbView.leadingAnchor, constant: 4).isActive = true
+        subgroupNumbLabel.topAnchor.constraint(equalTo: self.subgroupNumbView.topAnchor, constant: 2).isActive = true
+        subgroupNumbLabel.bottomAnchor.constraint(equalTo: self.subgroupNumbView.bottomAnchor, constant: -2).isActive = true
         
         lessonTimeLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
         lessonTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
@@ -176,6 +217,14 @@ class LessonCell: UITableViewCell {
 
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradient.colors = [viewModel?.firstCellColor.cgColor , viewModel?.secondCellColor.cgColor]
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
+        self.myView.layer.insertSublayer(gradient, at: 0)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -183,13 +232,13 @@ class LessonCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.teacherImageView.image = nil
-//        self.teacherImageView.isHidden = true
+        self.subgroupNumbView.isHidden = false
+        self.subgroupNumbLabel.isHidden = false
     }
 }
 
 extension LessonCell: TableViewCellViewModelDelegate {
     func updateImage(image: UIImage) {
-//        self.teacherImageView.isHidden = false
         self.teacherImageView.image = image
     }
     

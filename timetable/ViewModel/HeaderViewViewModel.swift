@@ -9,10 +9,18 @@
 import Foundation
 
 class HeaderViewViewModel: HeaderViewViewModelType {
+    
+    var weekNumber: String
     var weekdayName: String
+    
     let wekkdayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
     
-    init(forDate date: MyDate) {
+    init(forDate date: MyDate, selectedSchoolWeek: Int?) {
         self.weekdayName = wekkdayNames[date.selectedWeekday]
+        if selectedSchoolWeek != nil {
+            self.weekNumber = "\(selectedSchoolWeek!)-ая учебная неделя"
+        } else {
+            self.weekNumber = "failed loadin weekNumber"
+        }
     }
 }

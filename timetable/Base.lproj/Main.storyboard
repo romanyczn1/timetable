@@ -16,12 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="78j-Lx-Qzl">
-                                <rect key="frame" x="0.0" y="114" width="414" height="699"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eA9-Ya-f0a">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eA9-Ya-f0a">
                                 <rect key="frame" x="0.0" y="44" width="414" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CCM-el-YYX">
                                     <size key="itemSize" width="128" height="55"/>
@@ -33,18 +30,11 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="78j-Lx-Qzl" secondAttribute="trailing" id="16b-rY-nf3"/>
-                            <constraint firstItem="78j-Lx-Qzl" firstAttribute="top" secondItem="eA9-Ya-f0a" secondAttribute="bottom" id="2QY-Lw-vFf"/>
-                            <constraint firstItem="78j-Lx-Qzl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NMD-xe-8qj"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="78j-Lx-Qzl" secondAttribute="bottom" id="v96-nO-OmQ"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="6h7-tM-JWa"/>
                     <connections>
                         <outlet property="collectionView" destination="eA9-Ya-f0a" id="Wic-i7-1be"/>
-                        <outlet property="tableView" destination="78j-Lx-Qzl" id="MrV-cy-qhk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

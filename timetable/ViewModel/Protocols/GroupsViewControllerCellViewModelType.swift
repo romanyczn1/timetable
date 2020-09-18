@@ -11,4 +11,5 @@ import Foundation
 protocol GroupsViewControllerCellViewModelType {
     var groupName: String { get }
     var subgroupNumb: Int { get }
+    var isMain: Bool { get }
 }

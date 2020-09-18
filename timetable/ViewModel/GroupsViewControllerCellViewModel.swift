@@ -10,11 +10,14 @@ import Foundation
 
 final class GroupsViewControllerCellViewModel: GroupsViewControllerCellViewModelType {
     
+    var isMain: Bool
     var groupName: String
     var subgroupNumb: Int
     
-    init(groupName: String, subgroupNumb: Int) {
+    
+    init(groupName: String, subgroupNumb: Int, isMain: Bool) {
         self.groupName = groupName
         self.subgroupNumb = subgroupNumb
+        self.isMain = isMain
     }
 }

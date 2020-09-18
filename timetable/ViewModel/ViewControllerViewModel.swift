@@ -15,7 +15,6 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     var fetcher: DataFetcher?
     var timetable: Timetable?
     var fetchedResultsController: NSFetchedResultsController<Groupa>
-    var selectedSubgroup: Int?
     
     var currentWeekday: Int
     
@@ -41,11 +40,10 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         self.fetchedResultsController = fetchedResultsController
     }
     
-    func tryGetSelectedGroup(complition: @escaping (String?) -> Void) {
+    func tryGetSelectedGroup(complition: @escaping (String?, Int?) -> Void) {
         fetchedResultsController.fetchedObjects?.map({ (group) in
             if group.isMain == true {
-                complition(group.groupName)
-                self.selectedSubgroup = Int(group.subgroupNumb)
+                complition(group.groupName, Int(group.subgroupNumb))
                 return 
             }
         })
@@ -114,37 +112,46 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     }
     
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {
-        if date.selectedWeekday != 6 {
-            if subgroup == 0 {
-                let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
-                    lesson.weekNumber.contains(selectedSchoolWeek!)
-                })
-                return filteredLessons?.count ?? 0
+        if timetable != nil {
+            if date.selectedWeekday < (timetable?.schedules.count)! {
+                if subgroup == 0 {
+                    let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                        lesson.weekNumber.contains(selectedSchoolWeek!)
+                    })
+                    return filteredLessons?.count ?? 0
+                } else {
+                    let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
+                        lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
+                    })
+                    return filteredLessons?.count ?? 0
+                }
             } else {
-                let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
-                    lesson.weekNumber.contains(selectedSchoolWeek!) && (lesson.numSubgroup == 0 || lesson.numSubgroup == subgroup)
-                })
-                return filteredLessons?.count ?? 0
+                return 0
             }
+        } else {
+            return 0
         }
-        return 0
     }
     
     func numberOfRowsInCollectionView() -> Int {
         return 7
     }
     
+    func headerViewWrapperViewModel() -> HeaderViewWrapperViewModelType? {
+        return headerViewWrapperViewModel()
+    }
+    
     func headerViewViewModel() -> HeaderViewViewModelType? {
-        return HeaderViewViewModel.init(forDate: date)
+        return HeaderViewViewModel.init(forDate: date, selectedSchoolWeek: self.selectedSchoolWeek)
     }
     
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType? {
-        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: MyDate.init(day: self.date.day, month: self.date.month, year: self.date.year, selectedWeekday: self.date.selectedWeekday))
+        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: date)
     }
     
     func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
         let lesson = getNeededLesson(forSubgroup: subGroup, forIndexPath: indexPath)
-        return TableViewCellViewModel.init(forLesson: lesson, forIndexPath: indexPath)
+        return TableViewCellViewModel.init(forLesson: lesson, forIndexPath: indexPath, subgroup: subGroup)
     }
     
     private func getNeededLesson(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {

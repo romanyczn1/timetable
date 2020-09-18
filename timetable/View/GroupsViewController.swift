@@ -33,6 +33,7 @@ final class GroupsViewController: UIViewController {
         tableView.register(GroupsViewControllerCell.self, forCellReuseIdentifier: GroupsViewControllerCell.reuseId)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

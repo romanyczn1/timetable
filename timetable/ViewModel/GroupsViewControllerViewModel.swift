@@ -44,7 +44,7 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
     
     func groupsViewControllerCellViewModel(forIndexPath indexPath: IndexPath) -> GroupsViewControllerCellViewModelType {
         let group = fetchedResultsController.object(at: indexPath)
-        return GroupsViewControllerCellViewModel.init(groupName: group.groupName!, subgroupNumb: Int(group.subgroupNumb))
+        return GroupsViewControllerCellViewModel.init(groupName: group.groupName!, subgroupNumb: Int(group.subgroupNumb), isMain: group.isMain)
     }
     
     func addingGroupViewModel() -> AddingGroupTableViewControllerViewModelType {
