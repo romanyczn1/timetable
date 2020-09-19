@@ -20,7 +20,7 @@ class DateCell: UICollectionViewCell {
 
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -28,7 +28,7 @@ class DateCell: UICollectionViewCell {
 
     let weekdayNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,8 +54,9 @@ class DateCell: UICollectionViewCell {
         self.addSubview(dateLabel)
         self.addSubview(weekdayNameLabel)
         let width = UIScreen.main.bounds.width / 7
+        dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
         dateLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
-        dateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         weekdayNameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         weekdayNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
         weekdayNameLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor).isActive = true

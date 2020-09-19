@@ -10,7 +10,9 @@
 		60001BFC251534600052AC45 /* HeaderViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60001BFB251534600052AC45 /* HeaderViewWrapper.swift */; };
 		60001BFE2515354F0052AC45 /* HeaderViewWrapperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60001BFD2515354F0052AC45 /* HeaderViewWrapperViewModel.swift */; };
 		60001C002515356C0052AC45 /* HeaderViewWrapperViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60001BFF2515356C0052AC45 /* HeaderViewWrapperViewModelType.swift */; };
+		6011E78F25166D6700168C7A /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6011E78E25166D6700168C7A /* ShadowView.swift */; };
 		601DD1FA2502CC8400FDF5B9 /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DD1F92502CC8400FDF5B9 /* MyDate.swift */; };
+		6022D47A25163B86008765C1 /* niceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6022D47925163B86008765C1 /* niceCell.swift */; };
 		60ADF68A24FA838800667B74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68924FA838800667B74 /* AppDelegate.swift */; };
 		60ADF68E24FA838800667B74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68D24FA838800667B74 /* ViewController.swift */; };
 		60ADF69124FA838800667B74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF68F24FA838800667B74 /* Main.storyboard */; };
@@ -55,7 +57,9 @@
 		60001BFB251534600052AC45 /* HeaderViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewWrapper.swift; sourceTree = "<group>"; };
 		60001BFD2515354F0052AC45 /* HeaderViewWrapperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewWrapperViewModel.swift; sourceTree = "<group>"; };
 		60001BFF2515356C0052AC45 /* HeaderViewWrapperViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewWrapperViewModelType.swift; sourceTree = "<group>"; };
+		6011E78E25166D6700168C7A /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		601DD1F92502CC8400FDF5B9 /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
+		6022D47925163B86008765C1 /* niceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = niceCell.swift; sourceTree = "<group>"; };
 		60ADF68624FA838800667B74 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60ADF68924FA838800667B74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60ADF68D24FA838800667B74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				60E5E5F0250E414800F5CDAD /* GroupsViewControllerCell.swift */,
 				60E5E5E2250D626C00F5CDAD /* AddingGroupTableViewController.swift */,
 				60E5E5EA250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift */,
+				6022D47925163B86008765C1 /* niceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				60F7FB11250BCB470076D997 /* HeaderView.swift */,
+				6011E78E25166D6700168C7A /* ShadowView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 				60BD452424FAAD7700A432E8 /* NetwrokDataFetcher.swift in Sources */,
 				60CEFB9524FC10CD006A66F4 /* TableViewCellViewModelType.swift in Sources */,
 				60E5E5F5250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift in Sources */,
+				6011E78F25166D6700168C7A /* ShadowView.swift in Sources */,
 				60E5E5DB250D5B1700F5CDAD /* CoreDataStack.swift in Sources */,
 				60E5E5EF250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift in Sources */,
 				60001C002515356C0052AC45 /* HeaderViewWrapperViewModelType.swift in Sources */,
@@ -319,6 +326,7 @@
 				60001BFC251534600052AC45 /* HeaderViewWrapper.swift in Sources */,
 				60CEFB9F2501552F006A66F4 /* CollectionViewCellViewModel.swift in Sources */,
 				60E5E5DF250D615600F5CDAD /* GroupsViewControllerViewModelType.swift in Sources */,
+				6022D47A25163B86008765C1 /* niceCell.swift in Sources */,
 				60E5E5E7250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift in Sources */,
 				60CEFB9B24FC4FFC006A66F4 /* DateCell.swift in Sources */,
 				60CEFB9D24FD71B1006A66F4 /* TableViewCellViewModel.swift in Sources */,

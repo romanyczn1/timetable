@@ -31,26 +31,52 @@ class TableViewCellViewModel: TableViewCellViewModelType {
     
     weak var delegate: TableViewCellViewModelDelegate?
     
-    init(forLesson lesson: Lesson, forIndexPath idnexPath: IndexPath, subgroup: Int) {
+    init(forLesson lesson: Lesson, forIndexPath idnexPath: IndexPath, subgroup: Int, traitCollection: UITraitCollection) {
         self.lessonType = lesson.lessonType
         self.lessonTime = lesson.lessonTime
         self.lessonName = lesson.subject
         if lesson.auditory != [] {
             self.lessonAuditory = lesson.auditory[0]
         }
-        switch lessonType {
-        case "ЛК" :
-            self.firstCellColor = UIColor(red: 0, green: 0.87, blue: 0.79, alpha: 1)
-            self.secondCellColor = .white
-            self.lessonTypeName = "Лекция"
-        case "ПЗ" :
-            self.firstCellColor = #colorLiteral(red: 1, green: 1, blue: 0.419592581, alpha: 1)
-            self.secondCellColor = .white
-            self.lessonTypeName = "Практическое занятие"
-        case "ЛР" :
-            self.firstCellColor = #colorLiteral(red: 0.6117647059, green: 0.5450980392, blue: 0.8392156863, alpha: 1)
-            self.secondCellColor = .white
-            self.lessonTypeName = "Лабараторная"
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            switch lessonType {
+            case "ЛК" :
+                self.firstCellColor = UIColor(red: 0, green: 0.87, blue: 0.79, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Лекция"
+            case "ПЗ" :
+                self.firstCellColor = UIColor(red: 1, green: 1, blue: 0.42, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Практическое занятие"
+            case "ЛР" :
+                self.firstCellColor = UIColor(red: 0.61, green: 0.545, blue: 0.84, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Лабараторная"
+            default:
+                self.firstCellColor = .white
+                self.secondCellColor = .white
+                self.lessonTypeName = ""
+            }
+        case .light:
+            switch lessonType {
+            case "ЛК" :
+                self.firstCellColor = #colorLiteral(red: 0.8549210102, green: 1, blue: 1, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Лекция"
+            case "ПЗ" :
+                self.firstCellColor = #colorLiteral(red: 1, green: 1, blue: 0.9000951338, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Практическое занятие"
+            case "ЛР" :
+                self.firstCellColor = #colorLiteral(red: 1, green: 0.9229993081, blue: 1, alpha: 1)
+                self.secondCellColor = .white
+                self.lessonTypeName = "Лабараторная"
+            default:
+                self.firstCellColor = .white
+                self.secondCellColor = .white
+                self.lessonTypeName = ""
+            }
         default:
             self.firstCellColor = .white
             self.secondCellColor = .white

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 protocol ViewControllerViewModelType: class {
@@ -15,7 +16,7 @@ protocol ViewControllerViewModelType: class {
     func rightSwipeOccured()
     func leftSwipeOccured()
     func headerViewWrapperViewModel() -> HeaderViewWrapperViewModelType?
-    func tableViewCellViewModel(forSubgroup subgroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType?
+    func tableViewCellViewModel(forSubgroup subgroup: Int, forIndexPath indexPath: IndexPath, traitCollection: UITraitCollection) -> TableViewCellViewModelType?
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType?
     func headerViewViewModel() -> HeaderViewViewModelType?
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int

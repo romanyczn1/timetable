@@ -149,9 +149,9 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: date)
     }
     
-    func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> TableViewCellViewModelType? {
+    func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath, traitCollection: UITraitCollection) -> TableViewCellViewModelType? {
         let lesson = getNeededLesson(forSubgroup: subGroup, forIndexPath: indexPath)
-        return TableViewCellViewModel.init(forLesson: lesson, forIndexPath: indexPath, subgroup: subGroup)
+        return TableViewCellViewModel.init(forLesson: lesson, forIndexPath: indexPath, subgroup: subGroup, traitCollection: traitCollection)
     }
     
     private func getNeededLesson(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath) -> Lesson {
