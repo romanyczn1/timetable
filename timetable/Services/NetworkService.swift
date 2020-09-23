@@ -18,20 +18,17 @@ class NetworkService: Networking {
         let cache = URLCache.shared
         let request = URLRequest(url: URL(string: string)!)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let data = cache.cachedResponse(for: request)?.data {
-                completion(data, nil)
-                
-            } else {
-                
-                URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300 {
-                        let cachedData = CachedURLResponse(response: response, data: data)
-                        cache.storeCachedResponse(cachedData, for: request)
-                        completion(data, error)
-                    }
-                }.resume()
-            }
+        if let data = cache.cachedResponse(for: request)?.data {
+            completion(data, nil)
+        } else {
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300 {
+                    let cachedData = CachedURLResponse(response: response, data: data)
+                    cache.storeCachedResponse(cachedData, for: request)
+                    completion(data, error)
+                }
+            }.resume()
         }
+        
     }
 }

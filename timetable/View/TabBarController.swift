@@ -12,15 +12,18 @@ import UIKit
 final class TabBarController: UITabBarController {
     
     var viewModel: TabBarControllerViewModelType?
-    var arrayOfImageNameForSelectedState: [String] = ["scheduleIcon", "settingsIcon"]
-    var arrayOfImageNameForUnselectedState: [String] = ["scheduleIcon", "settingsIcon"]
-    var titles: [String] = ["Schedule", "Setting"]
+    var arrayOfImageNameForSelectedState: [String] = ["calendar", "settings"]
+    var arrayOfImageNameForUnselectedState: [String] = ["calendar", "settings"]
+    var titles: [String] = ["Schedule", "Settings"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         viewModel = TabBarControllerViewModel()
         setUpTabBarItems()
+        if let controller = viewControllers![0] as? ScheduleViewController {
+            controller.viewModel = viewModel?.viewControllerViewModel()
+        }
     }
     
     private func setUpTabBarItems(){
@@ -29,14 +32,19 @@ final class TabBarController: UITabBarController {
                 let imageNameForSelectedState   = arrayOfImageNameForSelectedState[i]
                 let imageNameForUnselectedState = arrayOfImageNameForUnselectedState[i]
 
-                self.tabBar.items?[i].selectedImage = UIImage(named: imageNameForSelectedState)?.withRenderingMode(.alwaysOriginal)
+                self.tabBar.items?[i].selectedImage = UIImage(named: imageNameForSelectedState)?.withRenderingMode(.alwaysTemplate)
                 self.tabBar.items?[i].title = titles[i]
-                self.tabBar.items?[i].image = UIImage(named: imageNameForUnselectedState)?.withRenderingMode(.alwaysOriginal)
+                self.tabBar.items?[i].image = UIImage(named: imageNameForUnselectedState)?.withRenderingMode(.alwaysTemplate)
             }
         }
 
-        let selectedColor   = UIColor(red: 246.0/255.0, green: 155.0/255.0, blue: 13.0/255.0, alpha: 1.0)
-        let unselectedColor = UIColor(red: 16.0/255.0, green: 224.0/255.0, blue: 223.0/255.0, alpha: 1.0)
+        let selectedColor   = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        var unselectedColor = UIColor()
+        if #available(iOS 13.0, *) {
+            unselectedColor = UIColor.label
+        } else {
+            unselectedColor = .gray
+        }
 
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: unselectedColor], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)

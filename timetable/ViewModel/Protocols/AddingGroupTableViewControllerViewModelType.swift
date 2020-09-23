@@ -9,7 +9,7 @@
 import Foundation
 
 protocol AddingGroupTableViewControllerViewModelType {
-    func getGroupsData(complition: @escaping () -> Void)
+    func getGroupsData(updateCacheOrNot: Bool, complition: @escaping () -> Void)
     func addGroupCellViewModel(forIndexPath indexPath: IndexPath) -> AddingGroupTableViewControllerCellViewModelType?
     func numberOfRows() -> Int
     func textDidChanged(withText text: String)

@@ -21,7 +21,7 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
     }
     
     func cellSelected(atIndexPath indexPath: IndexPath, tabBarController: UITabBarController) {
-        guard let controller = tabBarController.viewControllers![0] as? ViewController else { return }
+        guard let controller = tabBarController.viewControllers![0] as? ScheduleViewController else { return }
         let group = fetchedResultsController.object(at: indexPath)
         if group.isMain == true {
             group.subgroupNumb += 1
@@ -36,7 +36,6 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
             })
             group.isMain = true
             coreDataStack.saveContext()
-            //надо ж то дселать нормально
             controller.selectedGroup = group.groupName ?? ""
             controller.selectedSubgroup = Int(group.subgroupNumb)
         }

@@ -1,5 +1,5 @@
 //
-//  ViewControllerViewModel.swift
+//  ScheduleViewControllerViewModel.swift
 //  timetable
 //
 //  Created by Roman Bukh on 8/30/20.
@@ -10,14 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-class ViewControllerViewModel: ViewControllerViewModelType {
+class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     
     var fetcher: DataFetcher?
     var timetable: Timetable?
     var fetchedResultsController: NSFetchedResultsController<Groupa>
-    
-    var currentWeekday: Int
-    
+
     var date = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var startDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var selectedSchoolWeek: Int?
@@ -27,14 +25,14 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     init(fetchedResultsController: NSFetchedResultsController<Groupa>){
         let date = Date()
         let calendar = Calendar.current
-        self.currentWeekday = calendar.component(.weekday, from: date)
+        let currentWeekday = calendar.component(.weekday, from: date)
         self.date.month = calendar.component(.month, from: date)
         self.date.year = calendar.component(.year, from: date)
         self.date.day = calendar.component(.day, from: date)
-        if self.currentWeekday == 1 {
+        if currentWeekday == 1 {
             self.date.selectedWeekday = 6
         } else {
-            self.date.selectedWeekday = self.currentWeekday - 2
+            self.date.selectedWeekday = currentWeekday - 2
         }
         self.startDate = self.date
         self.fetchedResultsController = fetchedResultsController
@@ -49,15 +47,77 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         })
     }
     
-    func getTimetableData(forGroup group: String, completion: @escaping () -> Void) {
-        fetcher = NetworkDataFetcher()
-        fetcher!.getTimetable(forGroupId: group) { [weak self] (timetable, error) in
-            if error != nil { return }
-            self?.timetable = timetable
-            self?.date = self!.startDate
-            self?.selectedSchoolWeek = timetable?.currentWeekNumber
-            completion()
+    func getTimetableData(forGroup group: String, updateCacheOrNot: Bool, completion: @escaping () -> Void) {
+        var dispatchTime = DispatchTime(uptimeNanoseconds: 0)
+        if fetcher == nil {
+            fetcher = NetworkDataFetcher()
         }
+        if updateCacheOrNot {
+            fetcher?.updateTimetableCache(forGroupId: group)
+            dispatchTime = DispatchTime.now() + .seconds(1)
+        }
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.fetcher!.getTimetable(forGroupId: group) { [weak self] (timetable, error) in
+                if error != nil {
+                    print("ERROR LOADING WEEK NUMBER \(String(describing: error?.localizedDescription))")
+                }
+                self?.timetable = timetable
+                self?.date = self!.startDate
+                completion()
+            }
+        }
+    }
+    
+    func getCurrentWeekNumber(updateCacheOrNot: Bool, completion: @escaping () -> Void) {
+        var dispatchTime = DispatchTime(uptimeNanoseconds: 0)
+        if fetcher == nil {
+            fetcher = NetworkDataFetcher()
+        }
+        if updateCacheOrNot {
+            fetcher?.updateWeekNumberCache()
+            dispatchTime = DispatchTime.now() + .seconds(1)
+        }
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.fetcher?.getCurrentWeekNumber(response: { (curWeekNumb, error) in
+                if error != nil {
+                    print("ERROR LOADING WEEK NUMBER \(String(describing: error?.localizedDescription))")
+                }
+                if curWeekNumb != nil {
+                    self.selectedSchoolWeek = curWeekNumb
+                    completion()
+                }
+            })
+        }
+    }
+    
+    func refreshDate(completion: @escaping () -> Void) {
+        let date = Date()
+        let calendar = Calendar.current
+        let currentWeekday = calendar.component(.weekday, from: date)
+        var tempDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
+        tempDate.month = calendar.component(.month, from: date)
+        tempDate.year = calendar.component(.year, from: date)
+        tempDate.day = calendar.component(.day, from: date)
+        if currentWeekday == 1 {
+            tempDate.selectedWeekday = 6
+        } else {
+            tempDate.selectedWeekday = currentWeekday - 2
+        }
+        if tempDate != self.startDate {
+            self.startDate = tempDate
+            if Reachability.shared.isConnectedToNetwork() {
+                self.getCurrentWeekNumber(updateCacheOrNot: true, completion: {})
+            } else {
+                print("NO INTERNET CONNECTION HELLO")
+                self.getCurrentWeekNumber(updateCacheOrNot: false, completion: {})
+            }
+        }
+    }
+    
+    func goToStartDate(completion: @escaping () -> Void) {
+        refreshDate {}
+        self.date = self.startDate
+        getCurrentWeekNumber(updateCacheOrNot: false) {completion()}
     }
     
     func rightSwipeOccured() {
@@ -112,7 +172,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     }
     
     func numberOfRowsInTableView(forSubgroup subgroup: Int) -> Int {
-        if timetable != nil {
+        if timetable != nil && selectedSchoolWeek != nil{
             if date.selectedWeekday < (timetable?.schedules.count)! {
                 if subgroup == 0 {
                     let filteredLessons = timetable?.schedules[date.selectedWeekday].schedule.filter({ (lesson) -> Bool in
@@ -137,8 +197,8 @@ class ViewControllerViewModel: ViewControllerViewModelType {
         return 7
     }
     
-    func headerViewWrapperViewModel() -> HeaderViewWrapperViewModelType? {
-        return headerViewWrapperViewModel()
+    func selectedDayViewViewModel() -> SelectedDayViewViewModelType? {
+        return SelectedDayViewViewModel.init(forDate: date)
     }
     
     func headerViewViewModel() -> HeaderViewViewModelType? {
@@ -146,7 +206,7 @@ class ViewControllerViewModel: ViewControllerViewModelType {
     }
     
     func collectionViewCellViewModel(forIndexPath indexPath: IndexPath) -> CollectionViewCellViewModelType? {
-        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: date)
+        return CollectionViewCellViewModel.init(forIndexPath: indexPath, forDate: date, realWorldDate: startDate)
     }
     
     func tableViewCellViewModel(forSubgroup subGroup: Int, forIndexPath indexPath: IndexPath, traitCollection: UITraitCollection) -> TableViewCellViewModelType? {

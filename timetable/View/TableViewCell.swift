@@ -58,12 +58,6 @@ class LessonCell: UITableViewCell {
         return view
     }()
     
-    let myView1: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let gradient: CAGradientLayer = {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.cornerRadius = 20
@@ -169,12 +163,6 @@ class LessonCell: UITableViewCell {
         teacherImageViewToLessonName = teacherImageView.topAnchor.constraint(equalTo: self.lessonTimeLabel.bottomAnchor, constant: 12)
         teacherImageViewHeight = teacherImageView.heightAnchor.constraint(equalToConstant: 40)
         layoutIfNeeded()
-//        myView1.layer.shadowPath = UIBezierPath(rect: myView1.bounds).cgPath
-//        myView1.layer.shadowRadius = 5
-//        myView1.layer.shadowColor = UIColor.red.cgColor
-//        myView1.layer.shadowOffset = .zero
-//        myView1.layer.shadowOpacity = 1
-        
     }
     
     override func layoutSubviews() {
@@ -183,8 +171,8 @@ class LessonCell: UITableViewCell {
         self.contentView.addSubview(shadowView)
         self.shadowView.addSubview(myView)
         
-        shadowView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 7).isActive = true
-        shadowView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -7).isActive = true
+        shadowView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
+        shadowView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
         shadowView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 7).isActive = true
         shadowView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -7).isActive = true
 
@@ -192,19 +180,6 @@ class LessonCell: UITableViewCell {
         myView.trailingAnchor.constraint(equalTo: self.shadowView.trailingAnchor, constant: 0).isActive = true
         myView.topAnchor.constraint(equalTo: self.shadowView.topAnchor, constant: 0).isActive = true
         myView.bottomAnchor.constraint(equalTo: self.shadowView.bottomAnchor, constant: 0).isActive = true
-        
-//        self.contentView.addSubview(myView1)
-//        self.myView1.addSubview(myView)
-//
-//        myView1.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 7).isActive = true
-//        myView1.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -7).isActive = true
-//        myView1.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 7).isActive = true
-//        myView1.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -7).isActive = true
-//
-//        myView.leadingAnchor.constraint(equalTo: self.myView1.leadingAnchor, constant: 0).isActive = true
-//        myView.trailingAnchor.constraint(equalTo: self.myView1.trailingAnchor, constant: 0).isActive = true
-//        myView.topAnchor.constraint(equalTo: self.myView1.topAnchor, constant: 0).isActive = true
-//        myView.bottomAnchor.constraint(equalTo: self.myView1.bottomAnchor, constant: 0).isActive = true
 
         myView.addSubview(lessonNameLabel)
         myView.addSubview(lessonTimeLabel)
@@ -221,7 +196,7 @@ class LessonCell: UITableViewCell {
 
         lessonNameLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
         lessonNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
-        lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 15).isActive = true
+        lessonNameLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 10).isActive = true
         let lessonNameLabelHeightAnhcor = lessonNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 15)
         lessonNameLabelHeightAnhcor.priority = UILayoutPriority(rawValue: 999)
         lessonNameLabelHeightAnhcor.isActive = true
@@ -245,7 +220,7 @@ class LessonCell: UITableViewCell {
         
         teacherImageView.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
         teacherImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        teacherImageView.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -15).isActive = true
+        teacherImageView.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -10).isActive = true
         teacherImageViewToLessonName.priority = UILayoutPriority(rawValue: 999)
         teacherImageViewToLessonName.isActive = true
         teacherImageViewHeight.priority = UILayoutPriority(rawValue: 999)

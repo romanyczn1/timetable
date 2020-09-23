@@ -23,15 +23,22 @@ final class AddingGroupTableViewControllerViewModel: AddingGroupTableViewControl
         self.coreDataStack = coreDataStack
     }
     
-    func getGroupsData(complition: @escaping () -> Void) {
-        fetcher?.getGroups(response: { (groups, error) in
-            if error != nil {
-                print("error lOADING GROUPS \(error?.localizedDescription ?? "")")
-            }
-            self.groups = groups
-            self.filteredGroups = groups
-            complition()
-        })
+    func getGroupsData(updateCacheOrNot: Bool, complition: @escaping () -> Void) {
+        var dispatchTime = DispatchTime(uptimeNanoseconds: 0)
+        if updateCacheOrNot {
+            fetcher?.updateGroupsCache()
+            dispatchTime = DispatchTime.now() + .seconds(1)
+        }
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.fetcher?.getGroups(response: { (groups, error) in
+                if error != nil {
+                    print("error lOADING GROUPS \(error?.localizedDescription ?? "")")
+                }
+                self.groups = groups
+                self.filteredGroups = groups
+                complition()
+            })
+        }
     }
     
     func newGroupSelected(atIndexPath indexPath: IndexPath) {

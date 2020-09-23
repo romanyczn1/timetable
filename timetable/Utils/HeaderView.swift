@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
+protocol HeaderViewDelegate: class {
+    func updateButtonTapped(completion: @escaping () -> Void)
+}
+
 final class HeaderView: UIView {
+    
+    weak var delegate: HeaderViewDelegate?
     
     var viewModel: HeaderViewViewModelType? {
         willSet(viewModel){
@@ -25,7 +31,7 @@ final class HeaderView: UIView {
         if #available(iOS 13.0, *) {
             label.textColor = .label
         } else {
-            // Fallback on earlier versions
+            label.textColor = .black
         }
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,27 +45,44 @@ final class HeaderView: UIView {
         if #available(iOS 13.0, *) {
             label.textColor = .label
         } else {
-            // Fallback on earlier versions
+            label.textColor = .black
         }
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    let updateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            let image = UIImage(systemName: "arrow.clockwise")
+            button.setImage(image, for: UIControl.State.normal)
+        } else {
+            let image = UIImage(named: "refresh")
+            button.setImage(image, for: UIControl.State.normal)
+        }
+        button.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUpConstraints()
+        layoutIfNeeded()
         if #available(iOS 13.0, *) {
             self.backgroundColor = .secondarySystemBackground
         } else {
-            // Fallback on earlier versions
+            self.backgroundColor = #colorLiteral(red: 0.9518182874, green: 0.951977551, blue: 0.9517973065, alpha: 1)
         }
     }
     
-    private func setUpConstraints(){
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
         addSubview(weekdayNameLabel)
         addSubview(weekNumberLabel)
+        addSubview(updateButton)
         
         weekdayNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
@@ -71,6 +94,22 @@ final class HeaderView: UIView {
         weekNumberLabel.topAnchor.constraint(equalTo: self.weekdayNameLabel.bottomAnchor, constant: 3).isActive = true
         weekNumberLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 5).isActive = true
         weekNumberLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 3).isActive = true
+        
+        updateButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -7).isActive = true
+        updateButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: statusBarHeight / 2).isActive = true
+        updateButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        updateButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
+    }
+    
+    @objc private func updateButtonTapped() {
+        if Reachability.shared.isConnectedToNetwork() {
+            updateButton.isUserInteractionEnabled = false
+            delegate?.updateButtonTapped(completion: {
+                self.updateButton.isUserInteractionEnabled = true
+            })
+        } else {
+            print("NO INTERNET CONNECTION HELLO")
+        }
     }
     
     required init?(coder: NSCoder) {

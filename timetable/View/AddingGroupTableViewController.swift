@@ -14,11 +14,12 @@ final class AddingGroupTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var viewModel: AddingGroupTableViewControllerViewModelType?
     var activityIndicator: UIActivityIndicatorView!
+    var updateCacheOrNot: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.getGroupsData {
+        viewModel?.getGroupsData(updateCacheOrNot: !updateCacheOrNot!) {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 let text = self.searchBar.text

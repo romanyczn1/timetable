@@ -10,8 +10,8 @@ import Foundation
 import CoreData
 
 final class TabBarControllerViewModel: TabBarControllerViewModelType {
-    func viewControllerViewModel() -> ViewControllerViewModelType {
-        return ViewControllerViewModel.init(fetchedResultsController: fetchedResultsController)
+    func viewControllerViewModel() -> ScheduleViewControllerViewModelType {
+        return ScheduleViewControllerViewModel.init(fetchedResultsController: fetchedResultsController)
     }
     
     

@@ -17,16 +17,26 @@ final class GroupsViewControllerCell : UITableViewCell {
         willSet(viewModel){
             self.groupDataLabel.text = "\(viewModel?.groupName ?? "fuck off") / \(viewModel?.subgroupNumb ?? 9999)"
             if viewModel!.isMain {
-                myView.layer.borderWidth = 5
-                myView.layer.borderColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1).cgColor
+                myView.layer.borderWidth = 1
+                myView.layer.borderColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1).cgColor
             }
         }
     }
     
+    let shadowView: ShadowView = {
+        let view = ShadowView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let myView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .secondarySystemBackground
+        } else {
+            view.backgroundColor = #colorLiteral(red: 0.9231548309, green: 0.923309505, blue: 0.9231344461, alpha: 1)
+        }
         view.layer.cornerRadius = 20
         return view
     }()
@@ -35,7 +45,11 @@ final class GroupsViewControllerCell : UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Bold", size: 18)
         label.alpha = 0.65
-        label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,17 +57,24 @@ final class GroupsViewControllerCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setUpConstraints()
+        layoutIfNeeded()
     }
     
-    private func setUpConstraints() {
-    
-        self.contentView.addSubview(myView)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        myView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 7).isActive = true
-        myView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -7).isActive = true
-        myView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 7).isActive = true
-        myView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -7).isActive = true
+        self.contentView.addSubview(shadowView)
+        self.shadowView.addSubview(myView)
+        
+        shadowView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
+        shadowView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
+        shadowView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 7).isActive = true
+        shadowView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -7).isActive = true
+
+        myView.leadingAnchor.constraint(equalTo: self.shadowView.leadingAnchor, constant: 0).isActive = true
+        myView.trailingAnchor.constraint(equalTo: self.shadowView.trailingAnchor, constant: 0).isActive = true
+        myView.topAnchor.constraint(equalTo: self.shadowView.topAnchor, constant: 0).isActive = true
+        myView.bottomAnchor.constraint(equalTo: self.shadowView.bottomAnchor, constant: 0).isActive = true
         
         myView.addSubview(groupDataLabel)
         
@@ -62,7 +83,6 @@ final class GroupsViewControllerCell : UITableViewCell {
         groupDataLabel.topAnchor.constraint(equalTo: self.myView.topAnchor, constant: 10).isActive = true
         groupDataLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 5).isActive = true
         groupDataLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -10).isActive = true
-        
     }
     
     required init?(coder: NSCoder) {

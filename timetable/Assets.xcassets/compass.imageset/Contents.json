@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "scheduleIcon.png",
+      "filename" : "cur2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "scheduleIcon-1.png",
+      "filename" : "cur2-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "scheduleIcon-2.png",
+      "filename" : "cur2-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -14,3 +14,13 @@ struct MyDate {
     var year: Int
     var selectedWeekday: Int
 }
+
+extension MyDate: Equatable {
+    static func == (firstDate: MyDate, secondDate: MyDate) -> Bool {
+        if firstDate.day == secondDate.day && firstDate.month == secondDate.month && firstDate.year == secondDate.year {
+            return true
+        } else {
+            return false
+        }
+    }
+}

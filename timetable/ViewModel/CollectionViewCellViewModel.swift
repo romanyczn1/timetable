@@ -19,22 +19,13 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     let weekdayNames = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
     let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    init(forIndexPath indexPath: IndexPath, forDate date: MyDate) {
+    init(forIndexPath indexPath: IndexPath, forDate date: MyDate, realWorldDate: MyDate) {
         self.date = date
-        if indexPath.row == date.selectedWeekday {
-            color = .blue
-        } else {
-            if #available(iOS 13.0, *) {
-                color = .label
-            } else {
-                // Fallback on earlier versions
-                color = .red
-            }
-        }
-        setDate(date: date, indexPath: indexPath)
+        self.color = .black
+        setDate(date: date, indexPath: indexPath, realWorldDate: realWorldDate)
     }
     
-    private func setDate(date: MyDate, indexPath: IndexPath) {
+    private func setDate(date: MyDate, indexPath: IndexPath, realWorldDate: MyDate) {
         var day = date.day - ( date.selectedWeekday - indexPath.row)
         if day < 1 {
             if date.month != 1 {
@@ -57,6 +48,15 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
             }
         }
         self.date.day = day
+        if self.date.day == realWorldDate.day && self.date.month == realWorldDate.month && self.date.year == realWorldDate.year {
+            color = #colorLiteral(red: 0.03088182025, green: 0.5741170049, blue: 0.7236190438, alpha: 1)
+        } else {
+            if #available(iOS 13.0, *) {
+                color = .label
+            } else {
+                color = .black
+            }
+        }
         self.date.selectedWeekday = indexPath.row
         weekdayDate = "\(day)"
         weekdayName = weekdayNames[indexPath.row]

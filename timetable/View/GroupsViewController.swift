@@ -13,8 +13,15 @@ import CoreData
 final class GroupsViewController: UIViewController {
     
     var viewModel: GroupsViewControllerViewModelType?
+    private var groupsWereLoaded = false
     
     @IBOutlet weak var tableView: UITableView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.title = "Groups"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +47,10 @@ final class GroupsViewController: UIViewController {
         if segue.identifier == "listToAdd" {
             if let controller = segue.destination as? AddingGroupTableViewController {
                 controller.viewModel = self.viewModel?.addingGroupViewModel()
+                controller.updateCacheOrNot = groupsWereLoaded
+                if Reachability.shared.isConnectedToNetwork() {
+                    groupsWereLoaded = true
+                }
             }
         }
     }
