@@ -49,6 +49,7 @@ final class AddingGroupTableViewController: UITableViewController {
     private func setUpSearchBar() {
         searchBar.delegate = self
         searchBar.keyboardType = .asciiCapableNumberPad
+        searchBar.placeholder = "Номер группы"
     }
     
     private func setUpTableView() {

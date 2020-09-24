@@ -13,7 +13,8 @@
 		60384310251764020044800F /* SelectedDayViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038430F251764020044800F /* SelectedDayViewViewModelType.swift */; };
 		60384313251764350044800F /* SelectedDayViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60384312251764350044800F /* SelectedDayViewViewModel.swift */; };
 		6038431B2517D8AF0044800F /* NavigateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038431A2517D8AF0044800F /* NavigateButton.swift */; };
-		6069322A251B699800A4BF06 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60693229251B699800A4BF06 /* PopUpWindow.swift */; };
+		60450172251D3841000CD816 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60450171251D3841000CD816 /* CircleView.swift */; };
+		6069322A251B699800A4BF06 /* PopUpWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60693229251B699800A4BF06 /* PopUpWindowView.swift */; };
 		60ADF68A24FA838800667B74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68924FA838800667B74 /* AppDelegate.swift */; };
 		60ADF68E24FA838800667B74 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADF68D24FA838800667B74 /* ScheduleViewController.swift */; };
 		60ADF69124FA838800667B74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF68F24FA838800667B74 /* Main.storyboard */; };
@@ -62,7 +63,8 @@
 		6038430F251764020044800F /* SelectedDayViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDayViewViewModelType.swift; sourceTree = "<group>"; };
 		60384312251764350044800F /* SelectedDayViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDayViewViewModel.swift; sourceTree = "<group>"; };
 		6038431A2517D8AF0044800F /* NavigateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigateButton.swift; sourceTree = "<group>"; };
-		60693229251B699800A4BF06 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
+		60450171251D3841000CD816 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		60693229251B699800A4BF06 /* PopUpWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindowView.swift; sourceTree = "<group>"; };
 		60ADF68624FA838800667B74 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60ADF68924FA838800667B74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60ADF68D24FA838800667B74 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +233,8 @@
 				6011E78E25166D6700168C7A /* ShadowView.swift */,
 				6038430C251763D70044800F /* SelectedDayView.swift */,
 				6038431A2517D8AF0044800F /* NavigateButton.swift */,
-				60693229251B699800A4BF06 /* PopUpWindow.swift */,
+				60693229251B699800A4BF06 /* PopUpWindowView.swift */,
+				60450171251D3841000CD816 /* CircleView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -335,9 +338,10 @@
 				60E5E5E7250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift in Sources */,
 				60CEFB9B24FC4FFC006A66F4 /* DateCell.swift in Sources */,
 				60CEFB9D24FD71B1006A66F4 /* TableViewCellViewModel.swift in Sources */,
+				60450172251D3841000CD816 /* CircleView.swift in Sources */,
 				6038431B2517D8AF0044800F /* NavigateButton.swift in Sources */,
 				60E5E600250E604200F5CDAD /* Groupa+CoreDataProperties.swift in Sources */,
-				6069322A251B699800A4BF06 /* PopUpWindow.swift in Sources */,
+				6069322A251B699800A4BF06 /* PopUpWindowView.swift in Sources */,
 				60E5E603250EB23700F5CDAD /* TabBarController.swift in Sources */,
 				60F7FB14250BCE600076D997 /* HeaderVIewViewModelType.swift in Sources */,
 				60F7FB12250BCB470076D997 /* HeaderView.swift in Sources */,
@@ -425,7 +429,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -479,9 +483,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -501,7 +506,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zipzap.timetable;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bsuirApp.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -520,7 +525,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zipzap.timetable;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bsuirApp.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -46,7 +46,7 @@ class ScheduleViewController: UIViewController {
             })
         } else {
             self.viewModel?.getCurrentWeekNumber(updateCacheOrNot: false, completion: {
-                print("NO INTERNET CONNECTION HELLO")
+                self.showErrorConnectionView()
                 self.setUpViewModel()
             })
         }
@@ -156,10 +156,12 @@ class ScheduleViewController: UIViewController {
     
     @objc func refreshButtonTapped(_ sender: UIButton){
         viewModel?.goToStartDate(completion: {
-            self.headerView.viewModel = self.viewModel!.headerViewViewModel()
-            self.selectedDayView.viewModel = self.viewModel!.selectedDayViewViewModel()
-            self.collectionView.reloadData()
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.headerView.viewModel = self.viewModel!.headerViewViewModel()
+                self.selectedDayView.viewModel = self.viewModel!.selectedDayViewViewModel()
+                self.collectionView.reloadData()
+                self.tableView.reloadData()
+            }
         })
         UIView.animate(withDuration: 0.5, animations: {
                 sender.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -192,7 +194,28 @@ class ScheduleViewController: UIViewController {
             self.refreshButton.transform = CGAffineTransform(rotationAngle: 0)
         })
     }
+    
+    private func showErrorConnectionView() {
+        let view = PopUpWindowView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(view)
+        view.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.1).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.7).isActive = true
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
+            view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height * 0.165)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 1.5, options: .curveEaseIn ,animations: {
+                view.alpha = 0
+            }) { _ in
+                view.removeFromSuperview()
+            }
+        })
+    }
 }
+
+
 
 extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -275,15 +298,21 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout {
 
 extension ScheduleViewController: HeaderViewDelegate {
     
-    func updateButtonTapped(completion: @escaping () -> Void) {
-        viewModel?.getTimetableData(forGroup: selectedGroup, updateCacheOrNot: true, completion: { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                self?.collectionView.reloadData()
-                self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
-                self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
-                completion()
-            }
-        })
+    func updateButtonTapped(completion: @escaping () -> Void) -> Bool {
+        if Reachability.shared.isConnectedToNetwork(){
+            viewModel?.getTimetableData(forGroup: selectedGroup, updateCacheOrNot: true, completion: { [weak self] in
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    self?.collectionView.reloadData()
+                    self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
+                    self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
+                    completion()
+                }
+            })
+        } else {
+            self.showErrorConnectionView()
+            return false
+        }
+        return true
     }
 }

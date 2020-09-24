@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol HeaderViewDelegate: class {
-    func updateButtonTapped(completion: @escaping () -> Void)
+    func updateButtonTapped(completion: @escaping () -> Void) -> Bool
 }
 
 final class HeaderView: UIView {
@@ -102,14 +102,18 @@ final class HeaderView: UIView {
     }
     
     @objc private func updateButtonTapped() {
-        if Reachability.shared.isConnectedToNetwork() {
-            updateButton.isUserInteractionEnabled = false
-            delegate?.updateButtonTapped(completion: {
+        updateButton.isUserInteractionEnabled = false
+        updateButton.alpha = 0.5
+        if delegate?.updateButtonTapped(completion: {
+            self.updateButton.isUserInteractionEnabled = true
+            self.updateButton.alpha = 1
+        }) == false {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.updateButton.isUserInteractionEnabled = true
-            })
-        } else {
-            print("NO INTERNET CONNECTION HELLO")
+                self.updateButton.alpha = 1
+            }
         }
+        
     }
     
     required init?(coder: NSCoder) {

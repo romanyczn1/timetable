@@ -20,7 +20,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     var startDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var selectedSchoolWeek: Int?
     
-    let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    var numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
     init(fetchedResultsController: NSFetchedResultsController<Groupa>){
         let date = Date()
@@ -62,8 +62,9 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
                     print("ERROR LOADING WEEK NUMBER \(String(describing: error?.localizedDescription))")
                 }
                 self?.timetable = timetable
-                self?.date = self!.startDate
-                completion()
+                self?.goToStartDate {
+                    completion()
+                }
             }
         }
     }
@@ -90,7 +91,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
         }
     }
     
-    func refreshDate(completion: @escaping () -> Void) {
+    func refreshDate(completion: @escaping () -> Void) { //loading startDate and updating weekNumber if needed
         let date = Date()
         let calendar = Calendar.current
         let currentWeekday = calendar.component(.weekday, from: date)
@@ -117,10 +118,15 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     func goToStartDate(completion: @escaping () -> Void) {
         refreshDate {}
         self.date = self.startDate
-        getCurrentWeekNumber(updateCacheOrNot: false) {completion()}
+        getCurrentWeekNumber(updateCacheOrNot: false) { completion() }
     }
     
     func rightSwipeOccured() {
+        if self.date.year % 4 == 0 {
+            numberOfDaysInMonths[1] = 29
+        } else {
+            numberOfDaysInMonths[1] = 28
+        }
         self.date.selectedWeekday -= 1
         self.date.day -= 1
         if self.date.day == 0 {
@@ -143,6 +149,11 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     }
     
     func leftSwipeOccured() {
+        if self.date.year % 4 == 0 {
+            numberOfDaysInMonths[1] = 29
+        } else {
+            numberOfDaysInMonths[1] = 28
+        }
         self.date.selectedWeekday += 1
         self.date.day += 1
         if self.date.day > numberOfDaysInMonths[self.date.month - 1] {

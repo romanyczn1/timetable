@@ -77,11 +77,10 @@ class LessonCell: UITableViewCell {
         return label
     }()
     
-    let subgroupNumbView: UIView = {
-        let view = UIView()
+    let subgroupNumbView: CircleView = {
+        let view = CircleView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
-        view.layer.cornerRadius = 7.5
         view.alpha = 0.65
         return view
     }()
@@ -202,14 +201,14 @@ class LessonCell: UITableViewCell {
         lessonNameLabelHeightAnhcor.isActive = true
         
         subgroupNumbView.leadingAnchor.constraint(equalTo: self.lessonNameLabel.trailingAnchor, constant: 10).isActive = true
-        subgroupNumbView.widthAnchor.constraint(greaterThanOrEqualToConstant: 3).isActive = true
         subgroupNumbView.centerYAnchor.constraint(equalTo: self.lessonNameLabel.centerYAnchor, constant: 0).isActive = true
         subgroupNumbView.heightAnchor.constraint(greaterThanOrEqualToConstant: 3).isActive = true
+        subgroupNumbView.widthAnchor.constraint(equalTo: subgroupNumbView.heightAnchor).isActive = true
 
-        subgroupNumbLabel.trailingAnchor.constraint(equalTo: self.subgroupNumbView.trailingAnchor, constant: -4).isActive = true
-        subgroupNumbLabel.leadingAnchor.constraint(equalTo: self.subgroupNumbView.leadingAnchor, constant: 4).isActive = true
-        subgroupNumbLabel.topAnchor.constraint(equalTo: self.subgroupNumbView.topAnchor, constant: 2).isActive = true
-        subgroupNumbLabel.bottomAnchor.constraint(equalTo: self.subgroupNumbView.bottomAnchor, constant: -2).isActive = true
+        subgroupNumbLabel.trailingAnchor.constraint(equalTo: self.subgroupNumbView.trailingAnchor, constant: 0).isActive = true
+        subgroupNumbLabel.leadingAnchor.constraint(equalTo: self.subgroupNumbView.leadingAnchor, constant: 0).isActive = true
+        subgroupNumbLabel.topAnchor.constraint(equalTo: self.subgroupNumbView.topAnchor, constant: 0).isActive = true
+        subgroupNumbLabel.bottomAnchor.constraint(equalTo: self.subgroupNumbView.bottomAnchor, constant: 0).isActive = true
 
         lessonTimeLabel.leadingAnchor.constraint(equalTo: self.myView.leadingAnchor, constant: 15).isActive = true
         lessonTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true

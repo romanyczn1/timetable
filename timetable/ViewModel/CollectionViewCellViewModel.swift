@@ -17,7 +17,7 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     var date: MyDate
     
     let weekdayNames = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
-    let numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    var numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
     init(forIndexPath indexPath: IndexPath, forDate date: MyDate, realWorldDate: MyDate) {
         self.date = date
@@ -26,8 +26,13 @@ class CollectionViewCellViewModel: CollectionViewCellViewModelType {
     }
     
     private func setDate(date: MyDate, indexPath: IndexPath, realWorldDate: MyDate) {
+        if date.year % 4 == 0 {
+            numberOfDaysInMonths[1] = 29
+        } else {
+            numberOfDaysInMonths[1] = 28
+        }
         var day = date.day - ( date.selectedWeekday - indexPath.row)
-        if day < 1 {
+        if day  < 1 {
             if date.month != 1 {
                 day = numberOfDaysInMonths[date.month - 2] + day
             } else {

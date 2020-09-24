@@ -16,8 +16,8 @@ final class SelectedDayView: UIView {
     var viewModel: SelectedDayViewViewModelType? {
         willSet(viewModel){
             let day = viewModel?.weekdayNumber
-            viewLeadingConstraint.constant = CGFloat(day!)*(frame.width / 7)
-            myView.isHidden = false
+            self.viewLeadingConstraint.constant = CGFloat(day!)*(self.frame.width / 7)
+            self.myView.isHidden = false
             UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
