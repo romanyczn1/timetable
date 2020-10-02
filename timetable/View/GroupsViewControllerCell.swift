@@ -13,6 +13,18 @@ final class GroupsViewControllerCell : UITableViewCell {
     
     static let reuseId = "GroupsViewControllerCell"
     
+    func showCellTapAnimation() {
+        UIView.animate(withDuration: 0.1,
+            animations: {
+                self.myView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            },
+            completion: { _ in
+                UIView.animate(withDuration: 0.1) {
+                    self.myView.transform = CGAffineTransform.identity
+                }
+            })
+    }
+    
     var viewModel: GroupsViewControllerCellViewModelType? {
         willSet(viewModel){
             self.groupDataLabel.text = "\(viewModel?.groupName ?? "fuck off") / \(viewModel?.subgroupNumb ?? 9999)"
@@ -57,6 +69,7 @@ final class GroupsViewControllerCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .none
         layoutIfNeeded()
     }
     

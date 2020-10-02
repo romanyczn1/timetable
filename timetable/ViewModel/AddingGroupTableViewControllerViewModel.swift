@@ -42,9 +42,23 @@ final class AddingGroupTableViewControllerViewModel: AddingGroupTableViewControl
     }
     
     func newGroupSelected(atIndexPath indexPath: IndexPath) {
-        let group = Groupa(context: coreDataStack.managedContext)
-        group.groupName = filteredGroups![indexPath.row].name
-        group.subgroupNumb = 1
+        fetchedResultsController.fetchedObjects?.map({ (group) in
+            group.isMain = false
+        })
+        let newGroupName = filteredGroups![indexPath.row].name
+        var addGroupOrNot: Bool = true
+        fetchedResultsController.fetchedObjects?.map({ (group) in
+            if group.groupName! == newGroupName {
+                addGroupOrNot = false
+                group.isMain = true
+            }
+        })
+        if addGroupOrNot {
+            let group = Groupa(context: coreDataStack.managedContext)
+            group.groupName = newGroupName
+            group.subgroupNumb = 1
+            group.isMain = true
+        }
         coreDataStack.saveContext()
     }
     

@@ -111,7 +111,8 @@ class TableViewCellViewModel: TableViewCellViewModelType {
                 
                 URLSession.shared.dataTask(with: request) { (data, response, error) in
                     if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300, let image = UIImage(data: data) {
-                        let cachedData = CachedURLResponse(response: response, data: data)
+                        let lowData = UIImage(data: data)?.jpeg(.lowest)
+                        let cachedData = CachedURLResponse(response: response, data: lowData!)
                         cache.storeCachedResponse(cachedData, for: request)
                         DispatchQueue.main.async() { [weak self] in
                             self?.delegate?.updateImage(image: image)

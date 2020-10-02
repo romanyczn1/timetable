@@ -64,6 +64,16 @@ extension GroupsViewController: UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let emptyView = UIView()
+        emptyView.backgroundColor = .clear
+        return emptyView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 16
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.numberOfRows() ?? 0
     }
@@ -79,12 +89,15 @@ extension GroupsViewController: UITableViewDataSource {
 extension GroupsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.cellSelected(atIndexPath: indexPath, tabBarController: tabBarController!)
+        viewModel?.cellSelected(atIndexPath: indexPath/*, tabBarController: tabBarController!*/)
+        let cell = tableView.cellForRow(at: indexPath) as? GroupsViewControllerCell
+        cell?.showCellTapAnimation()
     }
 }
 
 extension GroupsViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
+        viewModel?.editSelectedGroupData(tabBarController: tabBarController!)
     }
 }

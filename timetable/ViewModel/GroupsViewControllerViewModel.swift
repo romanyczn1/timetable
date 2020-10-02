@@ -20,15 +20,15 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
         self.coreDataStack = coreDataStack
     }
     
-    func cellSelected(atIndexPath indexPath: IndexPath, tabBarController: UITabBarController) {
-        guard let controller = tabBarController.viewControllers![0] as? ScheduleViewController else { return }
+    func cellSelected(atIndexPath indexPath: IndexPath/*, tabBarController: UITabBarController*/) {
+//        guard let controller = tabBarController.viewControllers![0] as? ScheduleViewController else { return }
         let group = fetchedResultsController.object(at: indexPath)
         if group.isMain == true {
             group.subgroupNumb += 1
             if group.subgroupNumb >= 3 {
                 group.subgroupNumb = 0
             }
-            controller.selectedSubgroup = Int(group.subgroupNumb)
+//            controller.selectedSubgroup = Int(group.subgroupNumb)
             coreDataStack.saveContext()
         } else {
             fetchedResultsController.fetchedObjects?.map({ (group) in
@@ -36,8 +36,21 @@ final class GroupsViewControllerViewModel: GroupsViewControllerViewModelType {
             })
             group.isMain = true
             coreDataStack.saveContext()
-            controller.selectedGroup = group.groupName ?? ""
-            controller.selectedSubgroup = Int(group.subgroupNumb)
+//            controller.selectedGroup = group.groupName ?? ""
+//            controller.selectedSubgroup = Int(group.subgroupNumb)
+        }
+    }
+    
+    func editSelectedGroupData(tabBarController: UITabBarController) {
+        guard let controller = tabBarController.viewControllers![0] as? ScheduleViewController else { return }
+        let group = fetchedResultsController.fetchedObjects?.first(where: { (group) -> Bool in
+            group.isMain == true
+        })
+        if controller.selectedGroup == group?.groupName {
+            controller.selectedSubgroup = Int(group!.subgroupNumb)
+        } else {
+            controller.selectedGroup = group?.groupName ?? ""
+            controller.selectedSubgroup = Int(group?.subgroupNumb ?? 0)
         }
     }
     

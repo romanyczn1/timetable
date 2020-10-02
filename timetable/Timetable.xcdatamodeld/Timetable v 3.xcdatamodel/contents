@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Employee" representedClassName="Employee" syncable="YES">
+        <attribute name="fio" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="middleName" optional="YES" attributeType="String"/>
+        <attribute name="photoLink" optional="YES" attributeType="String"/>
+        <relationship name="forLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="employee" inverseEntity="Lesson"/>
+    </entity>
+    <entity name="Lesson" representedClassName="Lesson" syncable="YES">
+        <attribute name="auditory" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="endLessonTime" optional="YES" attributeType="String"/>
+        <attribute name="lessonTime" optional="YES" attributeType="String"/>
+        <attribute name="lessonType" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="numSubgroup" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startLessonTime" optional="YES" attributeType="String"/>
+        <attribute name="subject" optional="YES" attributeType="String"/>
+        <attribute name="weekNumber" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <relationship name="employee" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Employee" inverseName="forLesson" inverseEntity="Employee"/>
+        <relationship name="ofSchedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="schedule" inverseEntity="Schedule"/>
+    </entity>
+    <entity name="Schedule" representedClassName="Schedule" syncable="YES">
+        <attribute name="weekday" optional="YES" attributeType="String"/>
+        <relationship name="ofTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="scedules" inverseEntity="Timetable"/>
+        <relationship name="schedule" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Lesson" inverseName="ofSchedule" inverseEntity="Lesson"/>
+    </entity>
+    <entity name="StudentGroup" representedClassName="StudentGroup" syncable="YES">
+        <attribute name="course" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="forTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="studentGroup" inverseEntity="Timetable"/>
+    </entity>
+    <entity name="Timetable" representedClassName="Timetable" syncable="YES">
+        <attribute name="currentWeekNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="employee" optional="YES" attributeType="String"/>
+        <attribute name="todayDate" optional="YES" attributeType="String"/>
+        <relationship name="scedules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="ofTimetable" inverseEntity="Schedule"/>
+        <relationship name="studentGroup" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StudentGroup" inverseName="forTimetable" inverseEntity="StudentGroup"/>
+    </entity>
+    <elements>
+        <element name="Timetable" positionX="-234" positionY="45" width="128" height="118"/>
+        <element name="StudentGroup" positionX="-216" positionY="63" width="128" height="88"/>
+        <element name="Schedule" positionX="-198" positionY="81" width="128" height="88"/>
+        <element name="Lesson" positionX="-180" positionY="99" width="128" height="208"/>
+        <element name="Employee" positionX="-162" positionY="117" width="128" height="133"/>
+    </elements>
+</model>

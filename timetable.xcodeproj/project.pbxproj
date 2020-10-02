@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6011E78F25166D6700168C7A /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6011E78E25166D6700168C7A /* ShadowView.swift */; };
 		601DD1FA2502CC8400FDF5B9 /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DD1F92502CC8400FDF5B9 /* MyDate.swift */; };
+		601EEC7C25226F4D00C7EB1C /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601EEC7B25226F4D00C7EB1C /* ImageExtension.swift */; };
 		6038430D251763D70044800F /* SelectedDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038430C251763D70044800F /* SelectedDayView.swift */; };
 		60384310251764020044800F /* SelectedDayViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038430F251764020044800F /* SelectedDayViewViewModelType.swift */; };
 		60384313251764350044800F /* SelectedDayViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60384312251764350044800F /* SelectedDayViewViewModel.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		6011E78E25166D6700168C7A /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		601DD1F92502CC8400FDF5B9 /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
+		601EEC7B25226F4D00C7EB1C /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		6038430C251763D70044800F /* SelectedDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDayView.swift; sourceTree = "<group>"; };
 		6038430F251764020044800F /* SelectedDayViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDayViewViewModelType.swift; sourceTree = "<group>"; };
 		60384312251764350044800F /* SelectedDayViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDayViewViewModel.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		60ADF69224FA838C00667B74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60ADF69524FA838C00667B74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60ADF69724FA838C00667B74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60B051722527888A00CC7CF6 /* Timetable v 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Timetable v 3.xcdatamodel"; sourceTree = "<group>"; };
 		60BD452324FAAD7700A432E8 /* NetwrokDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwrokDataFetcher.swift; sourceTree = "<group>"; };
 		60C1588525194EF1000210FB /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		60CEFB8124FAC617006A66F4 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 				6038431A2517D8AF0044800F /* NavigateButton.swift */,
 				60693229251B699800A4BF06 /* PopUpWindowView.swift */,
 				60450171251D3841000CD816 /* CircleView.swift */,
+				601EEC7B25226F4D00C7EB1C /* ImageExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -266,7 +270,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Roman Bukharin";
 				TargetAttributes = {
 					60ADF68524FA838800667B74 = {
@@ -353,6 +357,7 @@
 				60CEFB9124FBE529006A66F4 /* ScheduleViewControllerViewModel.swift in Sources */,
 				60CEFB8224FAC617006A66F4 /* Models.swift in Sources */,
 				60E5E5EB250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift in Sources */,
+				601EEC7C25226F4D00C7EB1C /* ImageExtension.swift in Sources */,
 				60CEFB9324FBE53B006A66F4 /* ScheduleViewControllerViewModelType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +410,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -465,6 +471,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -559,6 +566,7 @@
 		60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				60B051722527888A00CC7CF6 /* Timetable v 3.xcdatamodel */,
 				60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */,
 				60E5E5F7250E460400F5CDAD /* Timetable.xcdatamodel */,
 			);
