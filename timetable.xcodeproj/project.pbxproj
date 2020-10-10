@@ -21,6 +21,18 @@
 		60ADF69124FA838800667B74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF68F24FA838800667B74 /* Main.storyboard */; };
 		60ADF69324FA838C00667B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF69224FA838C00667B74 /* Assets.xcassets */; };
 		60ADF69624FA838C00667B74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60ADF69424FA838C00667B74 /* LaunchScreen.storyboard */; };
+		60B051E52527B46100CC7CF6 /* LessonCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051D92527B46100CC7CF6 /* LessonCD+CoreDataClass.swift */; };
+		60B051E62527B46100CC7CF6 /* LessonCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DA2527B46100CC7CF6 /* LessonCD+CoreDataProperties.swift */; };
+		60B051E72527B46100CC7CF6 /* Groupa+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DB2527B46100CC7CF6 /* Groupa+CoreDataClass.swift */; };
+		60B051E82527B46100CC7CF6 /* Groupa+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DC2527B46100CC7CF6 /* Groupa+CoreDataProperties.swift */; };
+		60B051E92527B46100CC7CF6 /* StudentGroupCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DD2527B46100CC7CF6 /* StudentGroupCD+CoreDataClass.swift */; };
+		60B051EA2527B46100CC7CF6 /* StudentGroupCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DE2527B46100CC7CF6 /* StudentGroupCD+CoreDataProperties.swift */; };
+		60B051EB2527B46100CC7CF6 /* ScheduleCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051DF2527B46100CC7CF6 /* ScheduleCD+CoreDataClass.swift */; };
+		60B051EC2527B46100CC7CF6 /* ScheduleCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051E02527B46100CC7CF6 /* ScheduleCD+CoreDataProperties.swift */; };
+		60B051ED2527B46100CC7CF6 /* EmployeeCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051E12527B46100CC7CF6 /* EmployeeCD+CoreDataClass.swift */; };
+		60B051EE2527B46100CC7CF6 /* EmployeeCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051E22527B46100CC7CF6 /* EmployeeCD+CoreDataProperties.swift */; };
+		60B051EF2527B46100CC7CF6 /* TimetableCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051E32527B46100CC7CF6 /* TimetableCD+CoreDataClass.swift */; };
+		60B051F02527B46100CC7CF6 /* TimetableCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B051E42527B46100CC7CF6 /* TimetableCD+CoreDataProperties.swift */; };
 		60BD452424FAAD7700A432E8 /* NetwrokDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD452324FAAD7700A432E8 /* NetwrokDataFetcher.swift */; };
 		60C1588625194EF1000210FB /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1588525194EF1000210FB /* NetworkReachability.swift */; };
 		60CEFB8224FAC617006A66F4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CEFB8124FAC617006A66F4 /* Models.swift */; };
@@ -47,8 +59,6 @@
 		60E5E5F3250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F2250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift */; };
 		60E5E5F5250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F4250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift */; };
 		60E5E5F8250E460400F5CDAD /* Timetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */; };
-		60E5E5FF250E604200F5CDAD /* Groupa+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */; };
-		60E5E600250E604200F5CDAD /* Groupa+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */; };
 		60E5E603250EB23700F5CDAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E602250EB23700F5CDAD /* TabBarController.swift */; };
 		60E5E605250EB2A700F5CDAD /* TabBarControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E604250EB2A700F5CDAD /* TabBarControllerViewModel.swift */; };
 		60E5E607250EB2B000F5CDAD /* TabBarControllerViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E5E606250EB2B000F5CDAD /* TabBarControllerViewModelType.swift */; };
@@ -75,6 +85,18 @@
 		60ADF69524FA838C00667B74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60ADF69724FA838C00667B74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60B051722527888A00CC7CF6 /* Timetable v 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Timetable v 3.xcdatamodel"; sourceTree = "<group>"; };
+		60B051D92527B46100CC7CF6 /* LessonCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LessonCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051DA2527B46100CC7CF6 /* LessonCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LessonCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60B051DB2527B46100CC7CF6 /* Groupa+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051DC2527B46100CC7CF6 /* Groupa+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60B051DD2527B46100CC7CF6 /* StudentGroupCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudentGroupCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051DE2527B46100CC7CF6 /* StudentGroupCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudentGroupCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60B051DF2527B46100CC7CF6 /* ScheduleCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051E02527B46100CC7CF6 /* ScheduleCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60B051E12527B46100CC7CF6 /* EmployeeCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051E22527B46100CC7CF6 /* EmployeeCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60B051E32527B46100CC7CF6 /* TimetableCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimetableCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B051E42527B46100CC7CF6 /* TimetableCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimetableCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60BD452324FAAD7700A432E8 /* NetwrokDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwrokDataFetcher.swift; sourceTree = "<group>"; };
 		60C1588525194EF1000210FB /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		60CEFB8124FAC617006A66F4 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -101,8 +123,6 @@
 		60E5E5F2250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerCellViewModel.swift; sourceTree = "<group>"; };
 		60E5E5F4250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewControllerCellViewModelType.swift; sourceTree = "<group>"; };
 		60E5E5F7250E460400F5CDAD /* Timetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Timetable.xcdatamodel; sourceTree = "<group>"; };
-		60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataClass.swift"; sourceTree = "<group>"; };
-		60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Groupa+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Timetable v2.xcdatamodel"; sourceTree = "<group>"; };
 		60E5E602250EB23700F5CDAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		60E5E604250EB2A700F5CDAD /* TabBarControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerViewModel.swift; sourceTree = "<group>"; };
@@ -150,13 +170,30 @@
 				60F7FB10250BCB390076D997 /* Utils */,
 				60ADF69224FA838C00667B74 /* Assets.xcassets */,
 				60E5E5F6250E460400F5CDAD /* Timetable.xcdatamodeld */,
-				60E5E5FD250E604200F5CDAD /* Groupa+CoreDataClass.swift */,
-				60E5E5FE250E604200F5CDAD /* Groupa+CoreDataProperties.swift */,
 				60ADF68F24FA838800667B74 /* Main.storyboard */,
 				60ADF69424FA838C00667B74 /* LaunchScreen.storyboard */,
 				60ADF69724FA838C00667B74 /* Info.plist */,
 			);
 			path = timetable;
+			sourceTree = "<group>";
+		};
+		60B051F22527B4A700CC7CF6 /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				60B051D92527B46100CC7CF6 /* LessonCD+CoreDataClass.swift */,
+				60B051DA2527B46100CC7CF6 /* LessonCD+CoreDataProperties.swift */,
+				60B051DB2527B46100CC7CF6 /* Groupa+CoreDataClass.swift */,
+				60B051DC2527B46100CC7CF6 /* Groupa+CoreDataProperties.swift */,
+				60B051DD2527B46100CC7CF6 /* StudentGroupCD+CoreDataClass.swift */,
+				60B051DE2527B46100CC7CF6 /* StudentGroupCD+CoreDataProperties.swift */,
+				60B051DF2527B46100CC7CF6 /* ScheduleCD+CoreDataClass.swift */,
+				60B051E02527B46100CC7CF6 /* ScheduleCD+CoreDataProperties.swift */,
+				60B051E12527B46100CC7CF6 /* EmployeeCD+CoreDataClass.swift */,
+				60B051E22527B46100CC7CF6 /* EmployeeCD+CoreDataProperties.swift */,
+				60B051E32527B46100CC7CF6 /* TimetableCD+CoreDataClass.swift */,
+				60B051E42527B46100CC7CF6 /* TimetableCD+CoreDataProperties.swift */,
+			);
+			path = CoreDataModels;
 			sourceTree = "<group>";
 		};
 		60CEFB8724FAF666006A66F4 /* ViewModel */ = {
@@ -180,6 +217,7 @@
 		60CEFB8824FAF685006A66F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				60B051F22527B4A700CC7CF6 /* CoreDataModels */,
 				60CEFB8124FAC617006A66F4 /* Models.swift */,
 				601DD1F92502CC8400FDF5B9 /* MyDate.swift */,
 			);
@@ -321,34 +359,43 @@
 				60E5E5F5250E416C00F5CDAD /* GroupsViewControllerCellViewModelType.swift in Sources */,
 				6011E78F25166D6700168C7A /* ShadowView.swift in Sources */,
 				6038430D251763D70044800F /* SelectedDayView.swift in Sources */,
+				60B051F02527B46100CC7CF6 /* TimetableCD+CoreDataProperties.swift in Sources */,
 				60E5E5DB250D5B1700F5CDAD /* CoreDataStack.swift in Sources */,
 				60E5E5EF250D6BA300F5CDAD /* AddingGroupTableViewControllerCellViewModelType.swift in Sources */,
+				60B051EB2527B46100CC7CF6 /* ScheduleCD+CoreDataClass.swift in Sources */,
+				60B051EF2527B46100CC7CF6 /* TimetableCD+CoreDataClass.swift in Sources */,
 				60CEFB8F24FAFD57006A66F4 /* NetworkService.swift in Sources */,
-				60E5E5FF250E604200F5CDAD /* Groupa+CoreDataClass.swift in Sources */,
 				60E5E605250EB2A700F5CDAD /* TabBarControllerViewModel.swift in Sources */,
 				60E5E5E1250D61A900F5CDAD /* GroupsViewControllerViewModel.swift in Sources */,
+				60B051E92527B46100CC7CF6 /* StudentGroupCD+CoreDataClass.swift in Sources */,
 				60ADF68E24FA838800667B74 /* ScheduleViewController.swift in Sources */,
 				60E5E5F1250E414800F5CDAD /* GroupsViewControllerCell.swift in Sources */,
 				60384313251764350044800F /* SelectedDayViewViewModel.swift in Sources */,
 				60CEFB9924FC4F85006A66F4 /* TableViewCell.swift in Sources */,
 				60E5E5E3250D626C00F5CDAD /* AddingGroupTableViewController.swift in Sources */,
+				60B051EE2527B46100CC7CF6 /* EmployeeCD+CoreDataProperties.swift in Sources */,
 				60E5E5E5250D629F00F5CDAD /* AddingGroupTableViewControllerViewModel.swift in Sources */,
 				60ADF68A24FA838800667B74 /* AppDelegate.swift in Sources */,
 				60E5E5ED250D6B9900F5CDAD /* AddingGroupTableViewControllerCellViewModel.swift in Sources */,
 				60E5E5F3250E415E00F5CDAD /* GroupsViewControllerCellViewModel.swift in Sources */,
 				60CEFB9F2501552F006A66F4 /* CollectionViewCellViewModel.swift in Sources */,
+				60B051ED2527B46100CC7CF6 /* EmployeeCD+CoreDataClass.swift in Sources */,
 				60C1588625194EF1000210FB /* NetworkReachability.swift in Sources */,
+				60B051E72527B46100CC7CF6 /* Groupa+CoreDataClass.swift in Sources */,
 				60E5E5DF250D615600F5CDAD /* GroupsViewControllerViewModelType.swift in Sources */,
 				60E5E5E7250D62B300F5CDAD /* AddingGroupTableViewControllerViewModelType.swift in Sources */,
 				60CEFB9B24FC4FFC006A66F4 /* DateCell.swift in Sources */,
+				60B051E52527B46100CC7CF6 /* LessonCD+CoreDataClass.swift in Sources */,
 				60CEFB9D24FD71B1006A66F4 /* TableViewCellViewModel.swift in Sources */,
+				60B051EC2527B46100CC7CF6 /* ScheduleCD+CoreDataProperties.swift in Sources */,
 				60450172251D3841000CD816 /* CircleView.swift in Sources */,
 				6038431B2517D8AF0044800F /* NavigateButton.swift in Sources */,
-				60E5E600250E604200F5CDAD /* Groupa+CoreDataProperties.swift in Sources */,
 				6069322A251B699800A4BF06 /* PopUpWindowView.swift in Sources */,
+				60B051E82527B46100CC7CF6 /* Groupa+CoreDataProperties.swift in Sources */,
 				60E5E603250EB23700F5CDAD /* TabBarController.swift in Sources */,
 				60F7FB14250BCE600076D997 /* HeaderVIewViewModelType.swift in Sources */,
 				60F7FB12250BCB470076D997 /* HeaderView.swift in Sources */,
+				60B051E62527B46100CC7CF6 /* LessonCD+CoreDataProperties.swift in Sources */,
 				60F7FB16250BCE7E0076D997 /* HeaderViewViewModel.swift in Sources */,
 				601DD1FA2502CC8400FDF5B9 /* MyDate.swift in Sources */,
 				60384310251764020044800F /* SelectedDayViewViewModelType.swift in Sources */,
@@ -356,6 +403,7 @@
 				60E5E5F8250E460400F5CDAD /* Timetable.xcdatamodeld in Sources */,
 				60CEFB9124FBE529006A66F4 /* ScheduleViewControllerViewModel.swift in Sources */,
 				60CEFB8224FAC617006A66F4 /* Models.swift in Sources */,
+				60B051EA2527B46100CC7CF6 /* StudentGroupCD+CoreDataProperties.swift in Sources */,
 				60E5E5EB250D6B8400F5CDAD /* AddingGroupTableViewControllerCell.swift in Sources */,
 				601EEC7C25226F4D00C7EB1C /* ImageExtension.swift in Sources */,
 				60CEFB9324FBE53B006A66F4 /* ScheduleViewControllerViewModelType.swift in Sources */,
@@ -570,7 +618,7 @@
 				60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */,
 				60E5E5F7250E460400F5CDAD /* Timetable.xcdatamodel */,
 			);
-			currentVersion = 60E5E601250E812C00F5CDAD /* Timetable v2.xcdatamodel */;
+			currentVersion = 60B051722527888A00CC7CF6 /* Timetable v 3.xcdatamodel */;
 			path = Timetable.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

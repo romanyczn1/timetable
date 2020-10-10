@@ -15,6 +15,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     var fetcher: DataFetcher?
     var timetable: Timetable?
     var fetchedResultsController: NSFetchedResultsController<Groupa>
+    var coreDataStack: CoreDataStack
 
     var date = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var startDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
@@ -22,7 +23,19 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     
     var numberOfDaysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    init(fetchedResultsController: NSFetchedResultsController<Groupa>){
+    init(fetchedResultsController: NSFetchedResultsController<Groupa>, coreDataStack: CoreDataStack){
+        
+//        do {
+//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "TimetableCD")))
+//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "StudentGroupCD")))
+//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "ScheduleCD")))
+//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "LessonCD")))
+//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "EmployeeCD")))
+//            try coreDataStack.managedContext.save()
+//        } catch {
+//            print(error)
+//        }
+        
         let date = Date()
         let calendar = Calendar.current
         let currentWeekday = calendar.component(.weekday, from: date)
@@ -36,6 +49,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
         }
         self.startDate = self.date
         self.fetchedResultsController = fetchedResultsController
+        self.coreDataStack = coreDataStack
     }
     
     func tryGetSelectedGroup(complition: @escaping (String?, Int?) -> Void) {
@@ -62,6 +76,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
                     print("ERROR LOADING WEEK NUMBER \(String(describing: error?.localizedDescription))")
                 }
                 self?.timetable = timetable
+                self?.saveTimetableOnDevice()
                 self?.goToStartDate {
                     completion()
                 }
@@ -107,18 +122,19 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
         if tempDate != self.startDate {
             self.startDate = tempDate
             if Reachability.shared.isConnectedToNetwork() {
-                self.getCurrentWeekNumber(updateCacheOrNot: true, completion: {})
+                self.getCurrentWeekNumber(updateCacheOrNot: true, completion: { completion()})
             } else {
                 print("NO INTERNET CONNECTION HELLO")
-                self.getCurrentWeekNumber(updateCacheOrNot: false, completion: {})
+                self.getCurrentWeekNumber(updateCacheOrNot: false, completion: { completion()})
             }
+        } else {
+            self.getCurrentWeekNumber(updateCacheOrNot: false, completion: { completion()})
         }
     }
     
     func goToStartDate(completion: @escaping () -> Void) {
-        refreshDate {}
+        refreshDate { completion() }
         self.date = self.startDate
-        getCurrentWeekNumber(updateCacheOrNot: false) { completion() }
     }
     
     func rightSwipeOccured() {
@@ -239,5 +255,57 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
         }
     }
     
-    
+    private func saveTimetableOnDevice() {
+
+        self.fetchedResultsController.fetchedObjects?.map({ (group) in
+            if group.isMain == true {
+                
+                //Groupa entity
+                let timeTableCD = TimetableCD.init(context: coreDataStack.managedContext)
+                timeTableCD.currentWeekNumber	= Int16(self.timetable!.currentWeekNumber)
+                timeTableCD.employee = self.timetable?.employee
+                timeTableCD.todayDate = self.timetable?.todayDate
+                
+                group.timetable = timeTableCD
+                
+                //TimetableCD entity
+                let studentGroupCD = StudentGroupCD.init(context: coreDataStack.managedContext)
+                studentGroupCD.course = Int16((self.timetable?.studentGroup.course)!)
+                studentGroupCD.name = self.timetable?.studentGroup.name
+                
+                group.timetable?.studentGroup = studentGroupCD
+                
+                
+                for schedule in timetable!.schedules {
+                    let scheduleCD = ScheduleCD.init(context: coreDataStack.managedContext)
+                    scheduleCD.weekday = schedule.weekDay
+                    for lesson in schedule.schedule {
+                        let lessonCD = LessonCD.init(context: coreDataStack.managedContext)
+                        lessonCD.auditory = lesson.auditory
+                        lessonCD.endLessonTime = lesson.endLessonTime
+                        lessonCD.lessonTime = lesson.lessonTime
+                        lessonCD.lessonType = lesson.lessonType
+                        lessonCD.numSubgroup = Int64(lesson.numSubgroup)
+                        lessonCD.subject = lesson.subject
+                        lessonCD.weekNumber = lesson.weekNumber
+                        lessonCD.startLessonTime = lesson.startLessonTime
+                        lessonCD.note = lesson.note
+                        for employee in lesson.employee {
+                            let employeeCD = EmployeeCD.init(context: coreDataStack.managedContext)
+                            employeeCD.fio = employee.fio
+                            employeeCD.firstName = employee.firstName
+                            employeeCD.lastName = employee.lastName
+                            employeeCD.middleName = employee.middleName
+                            employeeCD.photoLink = employee.photoLink
+                            lessonCD.addToEmployee(employeeCD)
+                        }
+                        scheduleCD.addToSchedule(lessonCD)
+                    }
+                    group.timetable?.addToScedules(scheduleCD)
+                }
+            }
+        })
+        
+        coreDataStack.saveContext()
+    }
 }

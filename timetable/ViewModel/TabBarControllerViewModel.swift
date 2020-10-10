@@ -11,7 +11,7 @@ import CoreData
 
 final class TabBarControllerViewModel: TabBarControllerViewModelType {
     func viewControllerViewModel() -> ScheduleViewControllerViewModelType {
-        return ScheduleViewControllerViewModel.init(fetchedResultsController: fetchedResultsController)
+        return ScheduleViewControllerViewModel.init(fetchedResultsController: fetchedResultsController, coreDataStack: coreDataStack)
     }
     
     

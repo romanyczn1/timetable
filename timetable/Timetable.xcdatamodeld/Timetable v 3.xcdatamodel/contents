@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Employee" representedClassName="Employee" syncable="YES">
+    <entity name="EmployeeCD" representedClassName="EmployeeCD" syncable="YES">
         <attribute name="fio" optional="YES" attributeType="String"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
         <attribute name="middleName" optional="YES" attributeType="String"/>
         <attribute name="photoLink" optional="YES" attributeType="String"/>
-        <relationship name="forLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="employee" inverseEntity="Lesson"/>
+        <relationship name="forLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonCD" inverseName="employee" inverseEntity="LessonCD"/>
     </entity>
-    <entity name="Lesson" representedClassName="Lesson" syncable="YES">
+    <entity name="Groupa" representedClassName="Groupa" syncable="YES">
+        <attribute name="groupName" optional="YES" attributeType="String"/>
+        <attribute name="isMain" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="subgroupNumb" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="timetable" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TimetableCD" inverseName="ofGroup" inverseEntity="TimetableCD"/>
+    </entity>
+    <entity name="LessonCD" representedClassName="LessonCD" syncable="YES">
         <attribute name="auditory" optional="YES" attributeType="Transformable" customClassName="[String]"/>
         <attribute name="endLessonTime" optional="YES" attributeType="String"/>
         <attribute name="lessonTime" optional="YES" attributeType="String"/>
@@ -18,31 +24,33 @@
         <attribute name="startLessonTime" optional="YES" attributeType="String"/>
         <attribute name="subject" optional="YES" attributeType="String"/>
         <attribute name="weekNumber" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
-        <relationship name="employee" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Employee" inverseName="forLesson" inverseEntity="Employee"/>
-        <relationship name="ofSchedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="schedule" inverseEntity="Schedule"/>
+        <relationship name="employee" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="EmployeeCD" inverseName="forLesson" inverseEntity="EmployeeCD"/>
+        <relationship name="ofSchedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScheduleCD" inverseName="schedule" inverseEntity="ScheduleCD"/>
     </entity>
-    <entity name="Schedule" representedClassName="Schedule" syncable="YES">
+    <entity name="ScheduleCD" representedClassName="ScheduleCD" syncable="YES">
         <attribute name="weekday" optional="YES" attributeType="String"/>
-        <relationship name="ofTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="scedules" inverseEntity="Timetable"/>
-        <relationship name="schedule" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Lesson" inverseName="ofSchedule" inverseEntity="Lesson"/>
+        <relationship name="ofTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimetableCD" inverseName="scedules" inverseEntity="TimetableCD"/>
+        <relationship name="schedule" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LessonCD" inverseName="ofSchedule" inverseEntity="LessonCD"/>
     </entity>
-    <entity name="StudentGroup" representedClassName="StudentGroup" syncable="YES">
+    <entity name="StudentGroupCD" representedClassName="StudentGroupCD" syncable="YES">
         <attribute name="course" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="forTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="studentGroup" inverseEntity="Timetable"/>
+        <relationship name="forTimetable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimetableCD" inverseName="studentGroup" inverseEntity="TimetableCD"/>
     </entity>
-    <entity name="Timetable" representedClassName="Timetable" syncable="YES">
+    <entity name="TimetableCD" representedClassName="TimetableCD" syncable="YES">
         <attribute name="currentWeekNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="employee" optional="YES" attributeType="String"/>
         <attribute name="todayDate" optional="YES" attributeType="String"/>
-        <relationship name="scedules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="ofTimetable" inverseEntity="Schedule"/>
-        <relationship name="studentGroup" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StudentGroup" inverseName="forTimetable" inverseEntity="StudentGroup"/>
+        <relationship name="ofGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Groupa" inverseName="timetable" inverseEntity="Groupa"/>
+        <relationship name="scedules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ScheduleCD" inverseName="ofTimetable" inverseEntity="ScheduleCD"/>
+        <relationship name="studentGroup" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StudentGroupCD" inverseName="forTimetable" inverseEntity="StudentGroupCD"/>
     </entity>
     <elements>
-        <element name="Timetable" positionX="-234" positionY="45" width="128" height="118"/>
-        <element name="StudentGroup" positionX="-216" positionY="63" width="128" height="88"/>
-        <element name="Schedule" positionX="-198" positionY="81" width="128" height="88"/>
-        <element name="Lesson" positionX="-180" positionY="99" width="128" height="208"/>
-        <element name="Employee" positionX="-162" positionY="117" width="128" height="133"/>
+        <element name="EmployeeCD" positionX="-162" positionY="117" width="128" height="133"/>
+        <element name="Groupa" positionX="-144" positionY="216" width="128" height="103"/>
+        <element name="LessonCD" positionX="-180" positionY="99" width="128" height="208"/>
+        <element name="ScheduleCD" positionX="-198" positionY="81" width="128" height="88"/>
+        <element name="StudentGroupCD" positionX="-216" positionY="63" width="128" height="88"/>
+        <element name="TimetableCD" positionX="-234" positionY="45" width="128" height="133"/>
     </elements>
 </model>
