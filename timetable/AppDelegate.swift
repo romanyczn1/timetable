@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let controller = tabBar.viewControllers![0] as? ScheduleViewController {
                     controller.viewModel?.goToStartDate(completion: {
                         DispatchQueue.main.async {
+                            controller.deleteUnnecessarySubviews()
                             controller.headerView.viewModel = controller.viewModel!.headerViewViewModel()
                             controller.selectedDayView.viewModel = controller.viewModel!.selectedDayViewViewModel()
                             controller.collectionView.reloadData()

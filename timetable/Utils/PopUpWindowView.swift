@@ -48,7 +48,6 @@ final class PopUpWindowView: UIView {
         popupTitle.font = UIFont.systemFont(ofSize: 21.0, weight: .medium)
         popupTitle.numberOfLines = 0
         popupTitle.textAlignment = .center
-        popupTitle.text = "No internet connection"
         
         popupView.addSubview(popupTitle)
         

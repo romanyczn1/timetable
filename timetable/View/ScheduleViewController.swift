@@ -17,16 +17,26 @@ class ScheduleViewController: UIViewController {
     var refreshButton: NavigateButton!
     
     var viewModel: ScheduleViewControllerViewModelType?
-    var selectedGroup: String = "" {
+    var selectedGroup: String? {
         didSet{
-            viewModel?.getTimetableData(forGroup: selectedGroup, updateCacheOrNot: false, completion: { [weak self] in
+            if selectedGroup == nil {
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                    self?.collectionView.reloadData()
-                    self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
-                    self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
+                    self.deleteUnnecessarySubviews()
+                    self.showImageView(withImageName: "books", andText: "Выберите группу для просмотра расписания")
+                    self.viewModel?.clearTimetable()
+                    self.tableView.reloadData()
                 }
-            })
+            } else {
+                viewModel?.getTimetableData(forGroup: selectedGroup!, updateCacheOrNot: false, completion: { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.deleteUnnecessarySubviews()
+                        self?.tableView.reloadData()
+                        self?.collectionView.reloadData()
+                        self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
+                        self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
+                    }
+                })
+            }
         }
     }
     var selectedSubgroup: Int? {
@@ -46,7 +56,7 @@ class ScheduleViewController: UIViewController {
             })
         } else {
             self.viewModel?.getCurrentWeekNumber(updateCacheOrNot: false, completion: {
-                self.showErrorConnectionView()
+                self.showErrorView(withMessage: "No internet coonection. Week number may be wrong!")
                 self.setUpViewModel()
             })
         }
@@ -59,8 +69,12 @@ class ScheduleViewController: UIViewController {
     
     private func setUpViewModel() {
         viewModel?.tryGetSelectedGroup(complition: { (groupName, subgroupNumb)  in
-            self.selectedGroup = groupName!
-            self.selectedSubgroup = subgroupNumb
+            if groupName == nil {
+                self.selectedGroup = nil
+            } else {
+                self.selectedGroup = groupName!
+                self.selectedSubgroup = subgroupNumb
+            }
         })
     }
     
@@ -157,6 +171,7 @@ class ScheduleViewController: UIViewController {
     @objc func refreshButtonTapped(_ sender: UIButton){
         viewModel?.goToStartDate(completion: {
             DispatchQueue.main.async {
+                self.deleteUnnecessarySubviews()
                 self.headerView.viewModel = self.viewModel!.headerViewViewModel()
                 self.selectedDayView.viewModel = self.viewModel!.selectedDayViewViewModel()
                 self.collectionView.reloadData()
@@ -172,6 +187,9 @@ class ScheduleViewController: UIViewController {
     }
 
     @objc func leftSwipeHandler(){
+        if selectedGroup != nil {
+            deleteUnnecessarySubviews()
+        }
         refreshButton.tintColor = .black
         viewModel?.leftSwipeOccured()
         self.headerView.viewModel = viewModel!.headerViewViewModel()
@@ -184,6 +202,9 @@ class ScheduleViewController: UIViewController {
     }
     
     @objc func rightSwipeHandler(){
+        if selectedGroup != nil {
+            deleteUnnecessarySubviews()
+        }
         refreshButton.tintColor = .black
         viewModel?.rightSwipeOccured()
         self.headerView.viewModel = viewModel!.headerViewViewModel()
@@ -195,7 +216,7 @@ class ScheduleViewController: UIViewController {
         })
     }
     
-    private func showErrorConnectionView() {
+    private func showErrorView(withMessage message: String) {
         let view = PopUpWindowView()
         view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(view)
@@ -203,6 +224,7 @@ class ScheduleViewController: UIViewController {
         view.bottomAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.7).isActive = true
+        view.popupTitle.text = message
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
             view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height * 0.165)
         }, completion: { _ in
@@ -213,6 +235,52 @@ class ScheduleViewController: UIViewController {
             }
         })
     }
+    
+    private func showImageView(withImageName imageName: String, andText text: String) {
+        let view = UIImageView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(view)
+        view.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.4).isActive = true
+        view.widthAnchor.constraint(equalTo: self.tableView.widthAnchor, multiplier: 0.5).isActive = true
+        view.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: self.tableView.topAnchor, multiplier: 10).isActive = true
+        view.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor).isActive = true
+        view.image = UIImage(named: imageName)
+        let textView = UILabel()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.alpha = 0
+        self.view.addSubview(textView)
+        textView.text = text
+        textView.textAlignment = .center
+        textView.numberOfLines = 0
+        textView.topAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        textView.widthAnchor.constraint(equalTo: self.tableView.widthAnchor, multiplier: 0.6).isActive = true
+        textView.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor).isActive = true
+        textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+        textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        textView.font = UIFont(name: "AvenirNext-DemiBold", size: 20)
+        textView.alpha = 0.65
+        if #available(iOS 13.0, *) {
+            textView.textColor = .label
+        } else {
+            textView.textColor = .black
+        }
+        UIView.animate(withDuration: 0.5) {
+            view.alpha = 1
+            textView.alpha = 1
+        }
+    }
+    
+    func deleteUnnecessarySubviews() {
+        for view in self.view.subviews {
+            if let vu = view as? UIImageView{
+                vu.removeFromSuperview()
+            }
+            if let text = view as? UILabel {
+                text.removeFromSuperview()
+            }
+        }
+    }
 }
 
 
@@ -220,7 +288,20 @@ class ScheduleViewController: UIViewController {
 extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel!.numberOfRowsInTableView(forSubgroup: selectedSubgroup ?? 0)
+        let numberOfRows = viewModel!.numberOfRowsInTableView(forSubgroup: selectedSubgroup ?? 0)
+        if numberOfRows == 0 && selectedGroup != nil{
+            deleteUnnecessarySubviews()
+            let dayType = viewModel?.getDayType()
+            switch dayType {
+            case .bussiness:
+                showImageView(withImageName: "books", andText: "Сегодня пар нет, самое время отдохнуть")
+            case .weekend:
+                showImageView(withImageName: "books", andText: "Выходной, самое время отдохнуть")
+            case .none:
+                print("none")
+            }
+        }
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -268,6 +349,7 @@ extension ScheduleViewController: UICollectionViewDelegate {
         self.headerView.viewModel = viewModel!.headerViewViewModel()
         self.selectedDayView.viewModel = viewModel!.selectedDayViewViewModel()
         collectionView.reloadData()
+        deleteUnnecessarySubviews()
         tableView.reloadData()
         refreshButton.tintColor = .black
         UIView.animate(withDuration: 0.15, animations: {
@@ -299,20 +381,26 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout {
 extension ScheduleViewController: HeaderViewDelegate {
     
     func updateButtonTapped(completion: @escaping () -> Void) -> Bool {
-        if Reachability.shared.isConnectedToNetwork(){
-            viewModel?.getTimetableData(forGroup: selectedGroup, updateCacheOrNot: true, completion: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                    self?.collectionView.reloadData()
-                    self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
-                    self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
-                    completion()
-                }
-            })
+        if selectedGroup != nil {
+            if Reachability.shared.isConnectedToNetwork(){
+                viewModel?.getTimetableData(forGroup: selectedGroup ?? "", updateCacheOrNot: true, completion: { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                        self?.collectionView.reloadData()
+                        self?.headerView.viewModel = self?.viewModel!.headerViewViewModel()
+                        self?.selectedDayView.viewModel = self?.viewModel!.selectedDayViewViewModel()
+                        completion()
+                    }
+                })
+            } else {
+                self.showErrorView(withMessage: "No internet coonection. Week number may be wrong!")
+                return false
+            }
+            return true
         } else {
-            self.showErrorConnectionView()
+            self.showErrorView(withMessage: "Group is not selected. Please select your group!")
             return false
         }
-        return true
+        
     }
 }

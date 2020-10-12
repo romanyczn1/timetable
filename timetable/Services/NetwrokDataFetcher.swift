@@ -61,7 +61,6 @@ class NetworkDataFetcher: DataFetcher {
                 print("error loading data \(error!.localizedDescription)")
             }
             guard let data = data else { return }
-//            let currentWeekNumber = try? JSONDecoder().decode(Int.self, from: data)
             let currentWeekNumber = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Int
             if currentWeekNumber == nil {
                 response(9999, error)

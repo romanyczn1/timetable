@@ -24,3 +24,8 @@ extension MyDate: Equatable {
         }
     }
 }
+
+enum DayType {
+    case bussiness
+    case weekend
+}

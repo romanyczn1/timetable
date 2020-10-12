@@ -11,6 +11,7 @@ import UIKit
 
 protocol HeaderViewDelegate: class {
     func updateButtonTapped(completion: @escaping () -> Void) -> Bool
+    
 }
 
 final class HeaderView: UIView {

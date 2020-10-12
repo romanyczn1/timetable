@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "F9960DF5-2448-49F9-A91C-B64BC4B02724"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "23956004-2B41-41BD-995C-D40A8E7BC034"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timetable/Services/NetwrokDataFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "getGroups(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54D5B999-37AE-4FD2-AC3E-E535A90AD339"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timetable/Services/NetwrokDataFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "getTimetable(forGroupId:response:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "54D5B999-37AE-4FD2-AC3E-E535A90AD339 - 7ea08f866157f7f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in timetable.NetworkDataFetcher.getTimetable(forGroupId: Swift.String, response: (Swift.Optional&lt;timetable.Timetable&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "timetable"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/romanbukh/Swift%20Projects/timetable/timetable/Services/NetwrokDataFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "37">
+               </Location>
+               <Location
+                  uuid = "54D5B999-37AE-4FD2-AC3E-E535A90AD339 - dc5e397b9dd8eab6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[2] = Owned To Guaranteed, Arg[3] = Owned To Guaranteed&gt; of function signature specialization &lt;Arg[1] = [Closure Propagated : closure #1 (Swift.Optional&lt;timetable.Timetable&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in timetable.ScheduleViewControllerViewModel.getTimetableData(forGroup: Swift.String, updateCacheOrNot: Swift.Bool, completion: () -&gt; ()) -&gt; (), Argument Types : [{ var weak Swift.Optional&lt;timetable.ScheduleViewControllerViewModel&gt; }@escaping @callee_guaranteed () -&gt; ()]&gt; of timetable.NetworkDataFetcher.getTimetable(forGroupId: Swift.String, response: (Swift.Optional&lt;timetable.Timetable&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "timetable"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/romanbukh/Swift%20Projects/timetable/timetable/Services/NetwrokDataFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "380">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "402364CB-11B9-4737-A187-CA6F0EDAA187"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timetable/Services/NetwrokDataFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "getCurrentWeekNumber(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

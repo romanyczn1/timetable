@@ -16,7 +16,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     var timetable: Timetable?
     var fetchedResultsController: NSFetchedResultsController<Groupa>
     var coreDataStack: CoreDataStack
-
+    
     var date = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var startDate = MyDate(day: 0, month: 0, year: 0, selectedWeekday: 0)
     var selectedSchoolWeek: Int?
@@ -25,16 +25,16 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     
     init(fetchedResultsController: NSFetchedResultsController<Groupa>, coreDataStack: CoreDataStack){
         
-//        do {
-//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "TimetableCD")))
-//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "StudentGroupCD")))
-//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "ScheduleCD")))
-//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "LessonCD")))
-//            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "EmployeeCD")))
-//            try coreDataStack.managedContext.save()
-//        } catch {
-//            print(error)
-//        }
+        //        do {
+        //            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "TimetableCD")))
+        //            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "StudentGroupCD")))
+        //            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "ScheduleCD")))
+        //            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "LessonCD")))
+        //            try coreDataStack.managedContext.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "EmployeeCD")))
+        //            try coreDataStack.managedContext.save()
+        //        } catch {
+        //            print(error)
+        //        }
         
         let date = Date()
         let calendar = Calendar.current
@@ -53,12 +53,21 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     }
     
     func tryGetSelectedGroup(complition: @escaping (String?, Int?) -> Void) {
+        var hasMainGroup = false
         fetchedResultsController.fetchedObjects?.map({ (group) in
             if group.isMain == true {
                 complition(group.groupName, Int(group.subgroupNumb))
-                return 
+                hasMainGroup = true
             }
         })
+        if !hasMainGroup {
+            complition(nil, nil)
+        }
+        
+    }
+    
+    func clearTimetable() {
+        self.timetable = nil
     }
     
     func getTimetableData(forGroup group: String, updateCacheOrNot: Bool, completion: @escaping () -> Void) {
@@ -82,6 +91,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
                 }
             }
         }
+        
     }
     
     func getCurrentWeekNumber(updateCacheOrNot: Bool, completion: @escaping () -> Void) {
@@ -135,6 +145,14 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     func goToStartDate(completion: @escaping () -> Void) {
         refreshDate { completion() }
         self.date = self.startDate
+    }
+    
+    func getDayType() -> DayType {
+        if 0...4 ~= self.date.selectedWeekday{
+            return .bussiness
+        } else {
+            return .weekend
+        }
     }
     
     func rightSwipeOccured() {
@@ -256,7 +274,7 @@ class ScheduleViewControllerViewModel: ScheduleViewControllerViewModelType {
     }
     
     private func saveTimetableOnDevice() {
-
+        
         self.fetchedResultsController.fetchedObjects?.map({ (group) in
             if group.isMain == true {
                 

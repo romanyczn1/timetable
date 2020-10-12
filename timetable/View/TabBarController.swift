@@ -14,7 +14,7 @@ final class TabBarController: UITabBarController {
     var viewModel: TabBarControllerViewModelType?
     var arrayOfImageNameForSelectedState: [String] = ["calendar", "settings"]
     var arrayOfImageNameForUnselectedState: [String] = ["calendar", "settings"]
-    var titles: [String] = ["Schedule", "Settings"]
+    var titles: [String] = ["Schedule", "Groups"]
     
     override func awakeFromNib() {
         super.awakeFromNib()

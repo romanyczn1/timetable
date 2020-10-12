@@ -13,6 +13,8 @@ import CoreData
 protocol ScheduleViewControllerViewModelType: class {
     var fetchedResultsController: NSFetchedResultsController<Groupa> { get }
     
+    func getDayType() -> DayType
+    func clearTimetable()
     func getCurrentWeekNumber(updateCacheOrNot: Bool, completion: @escaping () -> Void)
     func refreshDate(completion: @escaping () -> Void)
     func goToStartDate(completion: @escaping () -> Void)

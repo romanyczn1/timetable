@@ -9,9 +9,11 @@
 import Foundation
 import CoreData
 
-protocol TabBarControllerViewModelType {
+
+protocol TabBarControllerViewModelType: class {
     var coreDataStack: CoreDataStack { get }
     var fetchedResultsController: NSFetchedResultsController<Groupa> { get }
+    
     func groupsViewControllerViewModel() -> GroupsViewControllerViewModelType
     func viewControllerViewModel() -> ScheduleViewControllerViewModelType
 }
